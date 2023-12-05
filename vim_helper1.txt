@@ -1,0 +1,163 @@
+1.1. Motion command reference
+- j: move down one line
+- k: move up one line
+- h: move left one character
+- l: move right one character
+
+- 0: move to the beginning of the line
+- $: move to the end of the line
+- w: to move word by word
+- b: to move backwards word by word
+- e: move to the end of your word
+- ^: go to the first non-blank character of the line
+- g_: go to the last non-blank character of line
+- `/{pattern}` to search forward
+- `?{pattern}` to search backwards
+    - `n` to go to the next match
+    - `N` to go to the previous match
+-----------------------------------------------
+- `W` to move word by WORD
+- `B` to move backwards WORD by WORD
+- `e` to jump to the end of a word
+- `ge` to jup to the end of the previous word
+- `E` is like `e` but operates on WORDS
+- `gE` is like `ge` but operates on WORDS
+
+- Use `f{character}` (find) to move to the next occurrence of a character in a line.
+- Use `F{character}` to find the previous occurrence of a character
+
+Repeating
+.	  Repeat last command
+;	  Repeat latest f, t, F or T
+,	  Repeat latest f, t, F or T reversed
+&	  Repeat last :s
+@:	Repeat a command-line command
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+- ): move forward one sentence
+- }: move forward one paragraph
+- :line_number: move to a given line number
+- H: move to the top of the screen
+- M: move to the middle of the screen
+- L: move to the bottom of the screen
+- ^E: scroll up one line
+- ^Y: scroll down one line
+- gg: go to the top of the file
+- G: go to the bottom of the file
+- ^U: move up half a page
+- ^D: move down half a page
+- ^F: move down a page
+- ^B: move up a page
+- Ctrl-i: jump to your previous navigation location
+- Ctrl-o: jump back to where you were
+
+1.2. Basic change/insert options 
+- i: insert before the cursor
+- a: append after the cursor (Start typing right after the cursor)
+- I: insert at the beginning of the line (Go to the beginning of the line and enter insert mode)
+- A: append at the end of the line
+- o: open a new line below the current one
+- O: open a new line above the current one
+- r: replace the one character under your cursor
+- R: replace the character under your cursor, but just keep typing afterwards
+- cm: change whatever you define as a movement, e.g. a word, or a sentence, or a paragraph.
+        for example - cw: replace from the cursor to the end of the word
+
+- C: change the current line from where you’re at (Delete the entire line you’re on, and enter insert mode)
+- ct?: change change up to the question mark
+- s: substitute from where you are to the next command (noun)
+- S: substitute the entire current line (Delete the entire line you’re on, and enter insert mode)
+
+- cis: change inside characteru
+
+1.3. Basic deletion options (Cutting text)
+- x: exterminate (delete) the character under the cursor
+- X: exterminate (delete) the character before the cursor
+- dm: delete whatever you define as a movement, e.g. a word, or a sentence, or a paragraph.
+- dd: delete the current line
+- dt.: delete delete from where you are to the period
+- D: delete to the end of the line
+- J: join the current line with the next one (delete what’s between)
+
+1.4. Undo and Redo
+- u: undo your last action.
+- Ctrl-r: redo the last action
+
+1.5. Repeating Actions
+- .: repear your last action
+
+1.6. Copy and Paste
+- y: yank (copy) from where you are to the next command (noun)
+- yy: a shortcut for copying the current line
+- p: paste the copied (or deleted) text after the current cursor position
+- P: paste the copied (or deleted) text before the current cursor position
+
+1.7. Substitution
+:%s /foo/bar/g: Change “foo” to “bar” on every line
+:s /foo/bar/g: Change “foo” to “bar” on just the current line
+
+1.8. Text Objects
+- iw: inside word
+- aw: around word
+
+- is: inside sentence
+- as: around sentence
+example - daw: # Delete around a word
+
+- is: inside sentence
+- as: around sentence
+example - cis: # Change inside a sentence (This nukes the entire sentence and puts you in Insert Mode at the beginning of your new one.)
+
+The difference between “inside” and “around” an object is whether it gets the spaces next to it as well.
+
+    1.8.1. Here a list of the objects for your reference:
+
+    - words: iw and aw
+    - sentences: is and as
+    - paragraphs: ip and ap
+    - single quotes: i' and a'
+    - double quotes: i" and a"
+    - back ticks: i` and a`
+    - parenthesis: i( and a(
+    - brackets: i[ and a[
+    - braces: i{ and a{
+    - tags: it and at
+
+2. Visual Mode
+  1. character-based: v
+  2. line-based: V
+  3. paragraphs: Ctrl-v
+
+examples:
+- vi(:  # Select inside of parenthesis
+- vi[:  # Select inside of brackets
+- v3i{: # Select everything inside the second tier braces
+ 
+- va(:  # Select around of parenthesis
+- va[:  # Select around of brackets
+- v3a{: # Select everything around the second tier braces
+
+[[[The main thing to understand here is that now that you’re in Visual Mode, your motions are changing what’s being highlighted. 
+This means you can do motions like w or ) to expand your selection. The highlighted area is then going to become the target for an action.]]]
+
+3. Macros
+  3.1. apply macros to visual selected - :'<,'>norm@a
+
+Change inside a sentence (This nukes the entire sentence and puts you (in Insert Mode at) the beginning of your new one.)

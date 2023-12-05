@@ -1,0 +1,1275 @@
+" ================================ info =================================
+" .ideavimrc i sa configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+" plugin instuctions: https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins
+" ============================== basic pre configuration ===========================
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" repeat comand for visually selected block
+vnoremap . :norm! .<CR>
+
+" ================================ basic settings =================================
+set number relativenumber
+set idearefactormode=keep
+
+set ideajoin
+set incsearch
+set scrolloff=5
+set hlsearch
+set ignorecase
+set smartcase
+set ideaput
+
+
+
+
+
+
+" ================================ space as leader =================================
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
+" ================================ plugins https://jb.gg/ideavim-plugins =================================
+set surround            "https://github.com/tpope/vim-surround
+set multiple-cursors    "https://github.com/terryma/vim-multiple-cursors
+set easymotion          "https://github.com/easymotion/vim-easymotion
+set commentary          "https://github.com/tpope/vim-commentary
+set highlightedyank     "https://github.com/machakann/vim-highlightedyank/blob/master/doc/highlightedyank.txt
+set NERDTree            "https://github.com/JetBrains/ideavim/wiki/NERDTree-support
+set exchange            "https://github.com/tommcdo/vim-exchange/blob/master/doc/exchange.txt
+set textobj-indent      "https://www.seanh.cc/2020/08/08/vim-indent-object/, https://github.com/michaeljsmith/vim-indent-object/blob/master/doc/indent-object.txt
+
+"================================ NERDTree config =================================
+map <C-p> :NERDTree<CR>
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
+
+
+"================================ highlightedyank config =================================
+"let g:highlightedyank_highlight_color = "rgba(172, 205, 218, 1)"
+let g:highlightedyank_highlight_duration = "300"
+
+"================================ vim-multiple-cursors config =================================
+nmap <leader>n <Plug>NextWholeOccurrence
+xmap <leader>n <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+"================================ easymotion =================================
+map <leader>k <Plug>(easymotion-s)
+map <leader>j <Plug>(easymotion-f)
+
+"================================ tmpl config =================================
+
+
+"================================ tmpl config =================================
+
+
+"================================ tmpl config =================================
+
+
+"========================================================================================
+"========================Idea Custom Actions Mapping ====================================
+"========================================================================================
+" Jetbrains Actions Mappings, all list of possible idea actions exec command :actionlist
+
+"TODO: group by diff actions group
+
+nmap <Tab>          <action>(NextTab)
+nmap <S-Tab>        <action>(PreviousTab)
+nmap <leader>a      <action>(Run)
+nmap <leader>cc     <action>(CloseEditor)
+nmap <leader>co     <action>(CloseAllEditorsButActive)
+nmap <leader>cp     <action>(CloseProject)
+nmap <leader>cs     <action>(QuickChangeScheme)
+"nmap <leader>e      <action>(ActivateProjectToolWindow)
+nmap <leader>e      <action>(SelectInProjectView)
+nmap <leader>g      <action>(GotoNextError)
+nmap <leader>h      <action>(HideActiveWindow)
+nmap <leader>i      <action>(Generate)
+nmap <leader>l      <action>(ShowErrorDescription)
+nmap <leader>m      <action>(Git.Menu)
+"nmap <leader>n      <action>(NewClass)
+nmap <leader>o      <action>(OptimizeImports)
+nmap <leader>q      <action>(Stop)
+nmap <leader>r      <action>(ReformatCode)
+nmap <leader>s      <action>(GlobalSettings)
+nmap <leader>t      <action>(ActivateTerminalToolWindow)
+
+nmap <leader>1 :action GoToTab1<CR>
+nmap <leader>2 :action GoToTab2<CR>
+nmap <leader>3 :action GoToTab3<CR>
+nmap <leader>4 :action GoToTab4<CR>
+nmap <leader>5 :action GoToTab5<CR>
+nmap <leader>6 :action GoToTab6<CR>
+nmap <leader>7 :action GoToTab7<CR>
+nmap <leader>8 :action GoToTab8<CR>
+nmap <leader>9 :action GoToTab9<CR>
+map <leader>0 <action>(GoToLastTab)
+
+"================================ raw =================================
+nmap <leader>t <Action>(ActivateTerminalToolWindow)
+noremap <Leader><Leader> :action SearchEverywhere<CR>
+
+
+map <leader>r <Action>(RenameElement)
+
+" 方法间移动 (Move between methods)
+map [f <Action>(MethodUp)
+map ]f <Action>(MethodDown)
+
+" 代码折叠/展开 (Code fold/expand)
+map zm <Action>(CollapseRegion)
+map za <Action>(ExpandRegion)
+map zM <Action>(CollapseAllRegions)
+map zR <Action>(ExpandAllRegions)
+
+map <C-o> <Action>(Back)
+map <C-i> <Action>(Forward)
+
+" --------------------
+
+" 复制到系统剪贴板 (Copy to system clipboard)
+vmap <C-S-c> "+y
+
+" 行首行末移动 (Move to line start/end)
+map H ^
+map L $
+
+" 块间移动 (Move between blocks)
+map J }
+map K {
+
+" Redo
+map U <C-r>
+
+" 块缩进 (Block ident)
+vmap < <gv
+vmap > >gv
+
+" 方法间移动 (Move between methods)
+map [f <Action>(MethodUp)
+map ]f <Action>(MethodDown)
+
+" 代码折叠/展开 (Code fold/expand)
+map zm <Action>(CollapseRegion)
+map za <Action>(ExpandRegion)
+map zM <Action>(CollapseAllRegions)
+map zR <Action>(ExpandAllRegions)
+
+" 取消高亮显示 (Cancel search highlight)
+map <BS><BS> :noh<CR>
+
+" 切换到 normal 模式 (Switch to normal mode)
+vmap i <Esc>
+imap jk <Esc>
+
+" Join Lines
+map <leader>j <Action>(EditorJoinLines)
+
+" View mode
+map <leader>vf <Action>(ToggleFullScreen)
+map <leader>vv <Action>(ToggleDistractionFreeMode)
+map <leader>vp <Action>(TogglePresentationMode)
+
+" Forward/Back
+
+map <C-o> <Action>(Back)
+map <C-i> <Action>(Forward)
+
+" Tab
+" Tab 切换 (Tab switch)
+map <S-Tab> <Action>(PreviousTab)
+map <Tab> <Action>(NextTab)
+" pin/unpin tab
+map <leader>P <Action>(PinActiveEditorTab)
+" 关闭当前/所有/其他/unpinned tabs (Close current/all/others/unpinned tabs)
+map <leader>xx <Action>(CloseContent)
+map <leader>xa <Action>(CloseAllEditors)
+map <leader>xo <Action>(CloseAllEditorsButActive)
+map <leader>xp <Action>(CloseAllUnpinnedEditors)
+
+" 终端 (Terminal)
+" 打开终端并进入项目根目录 (ActivateTerminal with project root dir)
+map <leader>tt <Action>(ActivateTerminalToolWindow)
+" 打开终端并进入当前目录 (OpenTerminal with current dir)
+map <leader>tc <Action>(Terminal.OpenInTerminal)
+
+" 分屏 (Pane)
+" 分屏 垂直/水平/关闭 (Pane vertically split/horizontally split/close)
+map <C-=> <Action>(SplitVertically)
+map <C--> <Action>(SplitHorizontally)
+map <C-BS> <Action>(Unsplit)
+
+" 分屏移动 上/下/左/右 (Move between panes top/bottom/left/right)
+map <C-k> <C-w>k
+map <C-j> <C-w>j
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+
+" 上下移动行 (Move line up/down)
+map <M-k> <Action>(MoveLineUp)
+map <M-j> <Action>(MoveLineDown)
+
+" 注释 (Comment)
+map gc <Action>(CommentByLineComment)
+" map gcb <Action>(CommentByBlockComment)
+
+" Pick action/class/symbol/file/recent change file/recent file
+map <leader>a <Action>(GotoAction)
+map <leader>c <Action>(GotoClass)
+map <leader>s <Action>(GotoSymbol)
+map <leader>ff <Action>(GotoFile)
+map <leader>fc <Action>(RecentChangedFiles)
+map <leader>fo <Action>(RecentFiles)
+
+" Goto
+map gu <Action>(GotoSuperMethod)
+map gi <Action>(GotoImplementation)
+map gd <Action>(GotoDeclaration)
+map gt <Action>(GotoTest)
+map gj <Action>(GotoNextError)
+map gk <Action>(GotoPreviousError)
+"
+map gh <Action>(QuickJavaDoc)
+map gH <Action>(QuickActions)
+map gr <Action>(RefactoringMenu)
+map ga <Action>(ShowIntentionActions)
+map gf <Action>(ShowUsages)
+map gF <Action>(FindUsages)
+
+" New ...
+map <leader>nn <Action>(NewElement)
+map <leader>nd <Action>(NewDir)
+map <leader>nf <Action>(NewFile)
+map <leader>np <Action>(NewProject)
+map <leader>nm <Action>(NewModule)
+
+" Build
+map <leader>b <Action>(BuildMenu)
+
+" Run & Debug
+map <leader>rc <Action>(ContextRun)
+map <leader>rf <Action>(ChooseRunConfiguration)
+map <leader>rr <Action>(Rerun)
+map <leader>dc <Action>(ContextDebug)
+map <leader>df <Action>(ChooseDebugConfiguration)
+" 断点 (Breakpoint)
+map mm <Action>(ToggleLineBreakpoint)
+map me <Action>(EditBreakpoint)
+map ma <Action>(ViewBreakpoints)
+
+" 停止执行 (Stop execute)
+map <C-c> <Action>(Stop)
+
+" Gradle tasks execute
+map <leader>g <Action>(Gradle.ExecuteTask)
+
+" 打开文件 (Open file)
+map <leader>o <Action>(OpenFile)
+
+" 项目管理 (Project management)
+map <leader>pr <Action>(ManageRecentProjects)
+map <leader>pl <Action>(RecentProjectListGroup)
+map <leader>px <Action>(CloseProject)
+
+" 清除缓存 (Clear caches)
+map <leader>xc <Action>(InvalidateCaches)
+" 关闭所有通知 (Close all notifications)
+map <leader>xn <Action>(CloseAllNotifications)
+" 隐藏所有工具窗口 (Hide all windows)
+map <leader>xw <Action>(HideAllWindows)
+
+"-------------------------------
+map <leader>a <Action>(Annotate)
+
+" Reformat the current line only
+map <leader>l V<Action>(ReformatCode)
+
+nmap gD <Action>(GotoTypeDeclaration)
+
+map <leader>sc :action UnsplitAll <CR>
+map <leader>v  :action NextSplitter <CR>
+
+map  <Leader>a <Action>(GotoAction)
+nmap <Leader>b <Action>(ToggleLineBreakpoint)
+nmap <Leader>c <Action>(GotoClass)
+nmap <Leader>d <Action>(QuickJavaDoc)
+nmap <Leader>e <Action>(Run)
+nmap <Leader>f <Action>(GotoFile)
+nmap <Leader>g <Action>(ManageRecentProjects)
+nmap <Leader>h <Action>(FileStructurePopup)
+nmap <Leader>i <Action>(GotoImplementation)
+nmap <Leader>j <Action>(ShowNavBar)
+noremap  <Leader>k mo:action KJumpAction<CR>
+nmap <Leader>l <Action>(FindInPath)
+nmap <Leader>m <Action>(RecentChangedFiles)
+nmap <Leader>n <Action>(LocalHistory.ShowHistory)
+xmap <Leader>n <Action>(LocalHistory.ShowSelectionHistory)
+nmap <Leader>o <Action>(ShowReformatFileDialog)
+xmap <Leader>o <Action>(ReformatCode)
+nmap <Leader>p <Action>(PasteMultiple)
+nmap <Leader>q <Action>(ChooseRunConfiguration)
+nmap <Leader>r <Action>(RenameElement)
+nmap <Leader>s <Action>(GotoSymbol)
+map  <Leader>t <Action>(ExpressionTypeInfo)
+nmap <Leader>u <Action>(ShowUsages)
+nmap <Leader>v <Action>(ViewBreakpoints)
+nmap <Leader>w <Action>(Debug)
+map  <Leader>x <Action>(Refactorings.QuickListPopupAction)
+nmap <Leader>y <Action>(ShowErrorDescription)
+nmap <Leader>z <Action>(RenameFile)
+
+" IDEA action
+nnoremap <Leader>re :action RenameElement<CR>
+nnoremap <Leader>gi :action GotoImplementation<CR>
+nnoremap <Leader>im :action ImplementMethods<CR>
+nnoremap <Leader>rv :action IntroduceVariable<CR>
+nnoremap <Leader>cr :action CopyReference<CR>
+nnoremap <Leader>em :action ExtractMethod<CR>
+nnoremap <Leader>sw :action SurroundWith<CR>
+
+-----------
+
+" location
+map <C-i> <Action>(Back)
+map <C-o> <Action>(Forward)
+
+" editor
+map <leader>xx <Action>(CloseContent)
+map <leader>xa <Action>CloseAllEditors)
+map <leader>xo <Action>(CloseAllEditorsButActive)
+map <leader>xp <Action>(CloseAllUnpinnedEditors)
+
+" tab
+map <C-Tab> <Action>(PreviousTab)
+map <Tab> <Action>(NextTab)
+map <leader>p <Action>(PinActiveEditorTab)
+
+map <leader>1 <Action>(GoToTab1)
+map <leader>2 <Action>(GoToTab2)
+map <leader>3 <Action>(GoToTab3)
+map <leader>4 <Action>(GoToTab4)
+map <leader>5 <Action>(GoToTab5)
+map <leader>6 <Action>(GoToTab6)
+map <leader>7 <Action>(GoToTab7)
+map <leader>8 <Action>(GoToTab8)
+map <leader>9 <Action>(GoToTab9)
+map <leader>0 <action>(GoToLastTab)
+
+
+" window
+map <leader>sh <Action>(MoveTabLeft)
+map <leader>sj <Action>(MoveTabDown)
+map <leader>sk <Action>(MoveTabUp)
+map <leader>sl <Action>(MoveTabRight)
+map <leader>sH <Action>(SplitHorizontally)
+map <leader>sV <Action>(SplitVertically)
+
+map <C-p> <Action>(JumpToLastWindow)
+map <M-i> <Action>(PrevSplitter)
+map <M-o> <Action>(NextSplitter)
+map <C-k> <C-w>k
+map <C-j> <C-w>j
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+
+map <leader>ww <Action>(HideAllWindows)
+nmap <leader>wk <Action>(StretchSplitToTop)
+nmap <leader>wj <Action>(StretchSplitToBottom)
+nmap <leader>wh <Action>(StretchSplitToLeft)
+nmap <leader>wl <Action>(StretchSplitToRight)
+map <leader>wm <Action>(MaximizeEditorInSplit)
+map <leader>wu <Action>(UnsplitAll)
+
+" menu
+map <leader>mm <Action>(MainMenu)
+map <leader>ma <Action>(AnalyzeMenu)
+map <leader>mb <Action>(BuildMenu)
+map <leader>mc <Action>(CodeMenu)
+map <leader>mf <Action>(FindMenuGroup)
+map <leader>mg <Action>(GoToMenu)
+map <leader>ms <Action>(ScopeViewPopupMenu)
+map <leader>mt <Action>(EditorTabPopupMenu)
+map <leader>mw <Action>(ToolWindowsGroup)
+
+" file
+map <leader>of <Action>(OpenFile)
+map <leader>yp <Action>(CopyAbsolutePath)
+map <leader>rf <Action>(RecentFiles)
+map <leader>rl <Action>(RecentLocations)
+map <leader>rp <Action>(ManageRecentProjects)
+map <leader>sh <Action>(LocalHistory.ShowHistory)
+map <leader>sf <Action>(ShowFilePath)
+map <leader>si <Action>(SelectIn)
+nmap \\fp <Action>(FindInPath)
+nmap \\rp <Action>(ReplaceInPath)
+map \\sw <Action>($SearchWeb)
+
+" tag
+map <leader>fu <Action>(FindUsages)
+map <leader>fs <Action>(FileStructurePopup)
+map <leader>su <Action>(ShowUsages)
+map <leader>hl <Action>(HighlightUsagesInFile)
+map <leader>qp <Action>(QuickPreview)
+map <leader>qd <Action>(QuickDefinition)
+map <leader>qD <Action>(QuickTypeDefinition)
+
+" code
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+map <leader>qf <Action>(ShowIntentionActions)
+map <leader>g <Action>(ShowErrorDescription)
+map <leader>om <Action>(OverrideMethods)
+map <leader>im <Action>(ImplementMethods)
+nmap \\o <Action>(SelectAllOccurrences)
+nmap \\g <Action>(Generate)
+nmap \\fc <Action>(ReformatCode)
+nmap \\ic <Action>(InspectCode)
+nmap \\t <Action>(GoToTest)
+
+" run
+map <leader>rc <Action>(ContextRun)
+map <leader>rx<Action>(chooseRunConfiguration)
+map <leader>rr <Action>(Rerun)
+map <leader>rt <Action>(RunTests)
+map <leader>rs <Action>(Stop)
+
+" debug
+map <leader>dc <Action>(ContextDebug)
+map <leader>dx <Action>(Debug)
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>de <Action>(EditBreakpoint)
+map <leader>dv <Action>(ViewBreakpoints)
+
+" build
+map <leader>bb <Action>(BuildMenu)
+
+" refactor
+map <leader>rn <Action>(RenameElement)
+map <leader>re <Action>(Refactorings.QuickListPopupAction)
+map <leader>uw <Action>(Unwrap)
+map <leader>sw <Action>(SurroundWith)
+map <leader>sd <Action>(SafeDelete)
+map <leader>oi <Action>(OptimizeImports)
+
+" hierarchy
+nmap <leader>hc <Action>(CallHierarchy)
+nmap <leader>hm <Action>(MethodHierarchy)
+nmap <leader>ht <Action>(TypeHierarchy)
+
+" collapse
+map zz <Action>(ExpandCollapseToggleAction)
+map za <Action>(CollapseAllRegions)
+map zA <Action>(ExpandAllRegions)
+
+" zen
+map <leader>z <Action>(ToggleZenMode)
+
+" []
+nmap [g <Action>(GotoPreviousError)
+nmap ]g <Action>(GotoNextError)
+nmap [u <Action>(GotoPrevElementUnderCaretUsage)
+nmap ]u <Action>(GotoNextElementUnderCaretUsage)
+nmap [o <Action>(PreviousOccurence)
+nmap ]o <Action>(NextOccurence)
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [c <Action>(JumpToLastChange)
+nmap ]c <Action>(JumpToNextChange)
+
+" goto
+map <leader>a <Action>(GotoAction)
+map ga <Action>(GotoAction)
+map gc <Action>(GotoClass)
+map gf <Action>(GotoFile)
+map gs <Action>(GotoSymbol)
+map gt <Action>(GoToTest)
+map gT <Action>(TextSearchAction)
+map go <Action>(GotoSuperMethod)
+map gd <Action>(GotoDeclaration)
+map gD <Action>(GotoTypeDeclaration)
+map gi <Action>(GotoImplementation)
+map gI <Action>(QuickImplementations)
+map gn <Action>(ShowNavBar)
+
+map <leader>rr <action>(RunClass)
+
+"-----------------------------------
+" editor
+map <leader>xx <Action>(CloseContent)
+map <leader>xa <Action>CloseAllEditors)
+map <leader>xo <Action>(CloseAllEditorsButActive)
+map <leader>xp <Action>(CloseAllUnpinnedEditors)
+
+" tab
+map <C-Tab> <Action>(PreviousTab)
+map <Tab> <Action>(NextTab)
+map <leader>p <Action>(PinActiveEditorTab)
+
+map <leader>1 <Action>(GoToTab1)
+map <leader>2 <Action>(GoToTab2)
+map <leader>3 <Action>(GoToTab3)
+map <leader>4 <Action>(GoToTab4)
+map <leader>5 <Action>(GoToTab5)
+map <leader>6 <Action>(GoToTab6)
+map <leader>7 <Action>(GoToTab7)
+map <leader>8 <Action>(GoToTab8)
+map <leader>9 <Action>(GoToTab9)
+
+" window
+map <leader>sh <Action>(MoveTabLeft)
+map <leader>sj <Action>(MoveTabDown)
+map <leader>sk <Action>(MoveTabUp)
+map <leader>sl <Action>(MoveTabRight)
+map <leader>sH <Action>(SplitHorizontally)
+map <leader>sV <Action>(SplitVertically)
+
+map <C-p> <Action>(JumpToLastWindow)
+map <M-i> <Action>(PrevSplitter)
+map <M-o> <Action>(NextSplitter)
+map <C-k> <C-w>k
+map <C-j> <C-w>j
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+
+map <leader>ww <Action>(HideAllWindows)
+nmap <leader>wk <Action>(StretchSplitToTop)
+nmap <leader>wj <Action>(StretchSplitToBottom)
+nmap <leader>wh <Action>(StretchSplitToLeft)
+nmap <leader>wl <Action>(StretchSplitToRight)
+map <leader>wm <Action>(MaximizeEditorInSplit)
+map <leader>wu <Action>(UnsplitAll)
+
+" menu
+map <leader>mm <Action>(MainMenu)
+map <leader>ma <Action>(AnalyzeMenu)
+map <leader>mb <Action>(BuildMenu)
+map <leader>mc <Action>(CodeMenu)
+map <leader>mf <Action>(FindMenuGroup)
+map <leader>mg <Action>(GoToMenu)
+map <leader>ms <Action>(ScopeViewPopupMenu)
+map <leader>mt <Action>(EditorTabPopupMenu)
+map <leader>mw <Action>(ToolWindowsGroup)
+
+" file
+map <leader>of <Action>(OpenFile)
+map <leader>yp <Action>(CopyAbsolutePath)
+map <leader>rf <Action>(RecentFiles)
+map <leader>rl <Action>(RecentLocations)
+map <leader>rp <Action>(ManageRecentProjects)
+map <leader>sh <Action>(LocalHistory.ShowHistory)
+map <leader>sf <Action>(ShowFilePath)
+map <leader>si <Action>(SelectIn)
+nmap \\fp <Action>(FindInPath)
+nmap \\rp <Action>(ReplaceInPath)
+map \\sw <Action>($SearchWeb)
+
+" tag
+map <leader>fu <Action>(FindUsages)
+map <leader>fs <Action>(FileStructurePopup)
+map <leader>su <Action>(ShowUsages)
+map <leader>hl <Action>(HighlightUsagesInFile)
+map <leader>qp <Action>(QuickPreview)
+map <leader>qd <Action>(QuickDefinition)
+map <leader>qD <Action>(QuickTypeDefinition)
+
+" code
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+map <leader>qf <Action>(ShowIntentionActions)
+map <leader>g <Action>(ShowErrorDescription)
+map <leader>om <Action>(OverrideMethods)
+map <leader>im <Action>(ImplementMethods)
+nmap \\o <Action>(SelectAllOccurrences)
+nmap \\g <Action>(Generate)
+nmap \\fc <Action>(ReformatCode)
+nmap \\ic <Action>(InspectCode)
+nmap \\t <Action>(GoToTest)
+
+" run
+map <leader>rc <Action>(ContextRun)
+map <leader>rx<Action>(chooseRunConfiguration)
+map <leader>rr <Action>(Rerun)
+map <leader>rt <Action>(RunTests)
+map <leader>rs <Action>(Stop)
+
+" debug
+map <leader>dc <Action>(ContextDebug)
+map <leader>dx <Action>(Debug)
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>de <Action>(EditBreakpoint)
+map <leader>dv <Action>(ViewBreakpoints)
+
+" build
+map <leader>bb <Action>(BuildMenu)
+
+" refactor
+map <leader>rn <Action>(RenameElement)
+map <leader>re <Action>(Refactorings.QuickListPopupAction)
+map <leader>uw <Action>(Unwrap)
+map <leader>sw <Action>(SurroundWith)
+map <leader>sd <Action>(SafeDelete)
+map <leader>oi <Action>(OptimizeImports)
+
+" hierarchy
+nmap <leader>hc <Action>(CallHierarchy)
+nmap <leader>hm <Action>(MethodHierarchy)
+nmap <leader>ht <Action>(TypeHierarchy)
+
+" collapse
+map zz <Action>(ExpandCollapseToggleAction)
+map za <Action>(CollapseAllRegions)
+map zA <Action>(ExpandAllRegions)
+
+" zen
+map <leader>z <Action>(ToggleZenMode)
+
+" []
+nmap [g <Action>(GotoPreviousError)
+nmap ]g <Action>(GotoNextError)
+nmap [u <Action>(GotoPrevElementUnderCaretUsage)
+nmap ]u <Action>(GotoNextElementUnderCaretUsage)
+nmap [o <Action>(PreviousOccurence)
+nmap ]o <Action>(NextOccurence)
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [c <Action>(JumpToLastChange)
+nmap ]c <Action>(JumpToNextChange)
+
+" goto
+map <leader>a <Action>(GotoAction)
+map ga <Action>(GotoAction)
+map gc <Action>(GotoClass)
+map gf <Action>(GotoFile)
+map gs <Action>(GotoSymbol)
+map gt <Action>(GoToTest)
+map gT <Action>(TextSearchAction)
+map go <Action>(GotoSuperMethod)
+map gd <Action>(GotoDeclaration)
+map gD <Action>(GotoTypeDeclaration)
+map gi <Action>(GotoImplementation)
+map gI <Action>(QuickImplementations)
+map gn <Action>(ShowNavBar)
+
+" terminal
+map <leader>tt <Action>(ActivateTerminalToolWindow)
+map <leader>tc <Action>(Terminal.OpenInTerminal)
+
+" ------------------------------------------------------
+
+" search action
+noremap <leader>sc :nohlsearch<CR>
+noremap <leader>sf :action Find<CR>
+noremap <leader>sr :action Replace<CR>
+noremap <leader>sF :action FindInPath<CR>
+noremap <leader>sR :action ReplaceInPath<CR>
+
+" file action
+nnoremap <leader>fr :action RecentFiles<CR>
+nnoremap <leader>fb :action Switcher<CR>
+nnoremap <leader>fl :action RecentLocations<CR>
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fc :action GotoClass<CR>
+nnoremap <leader>fs :action GotoSymbol<CR>
+nnoremap <leader>fa :action GotoAction<CR>
+nnoremap <leader>fd :action GotoDatabaseObject<CR>
+nnoremap <C-S-p> :action GotoAction<CR>
+nnoremap <C-p> :action GotoFile<CR>
+nnoremap <leader>ft :NERDTree<CR>
+nnoremap <leader>fT :NERDTreeFind<CR>
+
+" easymotion
+map s <Plug>(easymotion-s2)
+nmap <leader>dj d<Plug>(easymotion-j)
+nmap <leader>dk d<Plug>(easymotion-k)
+nmap <leader>yj y<Plug>(easymotion-j)
+nmap <leader>yk y<Plug>(easymotion-k)
+nmap <leader>vj V<Plug>(easymotion-j)
+nmap <leader>vk V<Plug>(easymotion-k)
+
+" navigation action
+nnoremap S :action Back<CR>
+nnoremap D :action Forward<CR>
+nnoremap ga `.
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gb :action GotoTypeDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gc :action JumpToLastChange<CR>
+nnoremap gC :action JumpToNextChange<CR>
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GotoPreviousError<CR>
+nnoremap gl :action ShowErrorDescription<CR>
+nnoremap gm :action MethodDown<cr>
+nnoremap gM :action MethodUp<cr>
+
+" tab action
+nnoremap <C-tab> gt
+nnoremap <C-S-tab> gT
+nnoremap tr :action MoveTabRight<CR>
+nnoremap td :action MoveTabDown<CR>
+nnoremap tm :action MoveEditorToOppositeTabGroup<CR>
+nnoremap tt :action ReopenClosedTab<CR>
+nnoremap to :action OpenEditorInOppositeTabGroup<CR>
+nnoremap tc :action CloseContent<CR>
+nnoremap tC :action CloseAllEditorsButActive<CR>
+
+" window action
+nnoremap <leader>wc :action ActivateCommitToolWindow<CR>
+nnoremap <leader>wd :action ActivateDebugToolWindow<CR>
+nnoremap <leader>wr :action ActivateRunToolWindow<CR>
+nnoremap <leader>wg :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>wm :action ActivateMavenToolWindow<CR>
+nnoremap <A-h> :action StretchSplitToLeft<CR>
+nnoremap <A-j> :action StretchSplitToBottom<CR>
+nnoremap <A-k> :action StretchSplitToTop<CR>
+nnoremap <A-l> :action StretchSplitToRight<CR>
+cmap term action ActivateTerminalToolWindow
+
+" code action
+nnoremap <leader>cu :action FindUsages<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap <leader>cg :action IntroduceVariable<CR>
+vnoremap <leader>cg :action IntroduceVariable<CR>
+nnoremap <leader>cd :action QuickJavaDoc<CR>
+vnoremap <leader>cs :action SurroundWith<CR>
+nnoremap <leader>o :action FileStructurePopup<CR>
+nnoremap <leader>p :action ShowErrorDescription<CR>
+nnoremap == :action ReformatCode \| action OptimizeImports<CR>
+
+" editor 
+vnoremap < <gv
+vnoremap > >gv
+xnoremap  p pgvy
+nnoremap zC :action CollapseAllRegions<CR>
+nnoremap zO :action ExpandAllRegions<CR>
+nnoremap zh 50zh
+nnoremap zl 50zl
+nnoremap zn :action ToggleDistractionFreeMode<CR>
+nnoremap zm :action MaximizeEditorInSplit<CR>
+
+" version control
+noremap <leader>vv :action Git.ContextMenu<CR>
+nnoremap <leader>vc :action Git.CompareWithBranch<CR>
+
+" bookmarks and buffer
+nnoremap <leader>bb :action Bookmarks<CR>
+nnoremap <leader>bs :action ShowBookmarks<CR>
+nnoremap <leader>bt :action ToggleBookmark<CR>
+nnoremap <leader>bf :action AddToFavorites<CR>
+
+" quick buffer
+nnoremap <leader>b0 :e C:/Users/BFD-LT/.ideavimrc<CR>
+
+" debugger
+noremap <leader>de :action QuickEvaluateExpression<CR>
+noremap <leader>dE :action EvaluateExpression<CR>
+vnoremap <leader>di :action Debugger.AddInlineWatch<CR>
+vnoremap <leader>dw :action Debugger.AddToWatch<CR>
+nnoremap <leader>db :action EditBrakpoint<CR>
+nnoremap <leader>dt :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dr :action Debugger.RemoveAllBreakpointsInFile<CR>
+nnoremap <leader>dR :action Debugger.RemoveAllBreakpoints<CR>
+nnoremap <leader>dm :action XDebugger.MuteBreakpoints<CR>
+nnoremap <leader>dc :action ForceRunToCursor<CR>
+nnoremap <C-j> :action StepOver<CR>
+nnoremap <C-k> :action Resume<CR>
+nnoremap <C-h> :action StepOut<CR>
+nnoremap <C-l> :action ForceStepInto<CR>
+
+" run
+nnoremap <leader>rd :action ChooseDebugConfiguration<CR>
+nnoremap <leader>rD :action ChooseRunConfiguration<CR>
+nnoremap <leader>rp :action Debug<CR>
+nnoremap <leader>rP :action Run<CR>
+nnoremap <leader>rc :action DebugClass<CR>
+nnoremap <leader>rC :action RunClass<CR>
+nnoremap <leader>rr :action Rerun<CR>
+nnoremap <leader>rs :action Stop<CR>
+nnoremap <leader>ra :action RunAnything<CR>
+
+" quit
+nnoremap <leader>qq :action Exit<CR>
+nnoremap <leader>qr :action RestartIde<CR>
+
+"-----------------------------------------------------------------
+
+"" Good Keyboard Shortcut Rebinds (in PyCharm)
+"" In my case I prefer to use Control over Alt, so I rebinded some of the shortcuts
+"" <EditorUp> -> <c-k> // Useful for navigating in pop ups
+"" <EditorDown> -> <c-j> // Useful for navigating in pop ups
+"" <ActivateProjectToolWindow> -> <c-e> // Go to project explorer
+"" <HideActiveWindow> -> <c-h> // Minimize window
+"" <NewElement> -> <c-n> // Useful for NerdTree
+"" <ShowPopupMenu> -> <c-m> // Useful in many situations (NerdTree, editor...). It acts as a right click
+"" <PreviousTab> -> <a-h> // Useful for switching tabs in terminal
+"" <NextTab> -> <a-l> // Useful for switching tabs in terminal
+"" <NextSplitter> -> <c-w> // Useful for switching windows
+"" <PrevSplitter> -> <c-W> // Useful for switching windows
+"" <EditorScrollDown> -> <c-J> // Useful for scrolling
+"" <EditorScrollUp> -> <c-K> // Useful for scrolling
+"" <copilot.openCopilot> -> <c-p>
+"" <copilot.toggleCopilot> -> <c-P>
+"" <copilot.requestCompletions> -> <c-[>
+"" <copilot.cycleNextInLays> -> <c-[>
+"" <copilot.cyclePrevInLays> -> <c-]>
+"" <notebook.openCellBelow> -> <c-o>
+"" <notebook.openCellAbove> -> <c-O>
+
+" Begin Vimrc
+set linenumber
+set showcmd
+set showmode
+set number
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set clipboard+=unnamed
+set clipboard+=ideaput
+set idearefactormode=keep
+set visualbell
+set noerrorbells
+set noideadelaymacro
+set notimeout
+set ideajoin
+
+" The Leader Key
+let mapleader=" "
+
+set which-key
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKeyDesc_leader = "<leader> Leader key"
+let g:WhichKey_DefaultDelay = 200
+
+" Create Blank Newlines and stay in Normal mode
+nnoremap <silent> zj o<Esc>k
+let g:WhichKeyDesc_zj = "zj"
+nnoremap <silent> zk O<Esc>j
+let g:WhichKeyDesc_zk = "zk"
+
+" Easy move to four directions with control
+inoremap <c-k> <up>
+inoremap <c-j> <down>
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+
+" Escaping from insert mode
+inoremap jk <Esc>
+let g:WhichKeyDesc_jk = "jk"
+
+" Maintain visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Do not overwrite unnamed register with x and s
+nnoremap x "_x
+nnoremap s "_s
+
+" Y yank until end of line
+nnoremap Y y$
+
+" U to redo
+nnoremap U <C-r>
+
+" R to execute q macro
+nnoremap R @q
+
+" Reselect last-pasted text
+nnoremap gp `[v`]
+let g:WhichKeyDesc_gp = "gp"
+
+" Plugins
+Plug 'tpope/vim-commentary'
+let g:WhichKeyDesc_com = "gc"
+Plug 'easymotion/vim-easymotion'
+map , <Plug>(easymotion-prefix)
+let g:WhichKeyDesc_easymotion_leader = ","
+map ,f <Plug>(easymotion-bd-f)
+let g:WhichKeyDesc_easymotion_f = ",f"
+map ,t <Plug>(easymotion-bd-t)
+let g:WhichKeyDesc_easymotion_t = ",t"
+map ,w <Plug>(easymotion-bd-w)
+let g:WhichKeyDesc_easymotion_w = ",w"
+map ,W <Plug>(easymotion-bd-W)
+let g:WhichKeyDesc_easymotion_W = ",W"
+map ,e <Plug>(easymotion-bd-e)
+let g:WhichKeyDesc_easymotion_e = ",e"
+map ,E <Plug>(easymotion-bd-E)
+let g:WhichKeyDesc_easymotion_E = ",E"
+map ,l <Plug>(easymotion-bd-jk)
+let g:WhichKeyDesc_easymotion_l = ",l"
+map ,s <Plug>(easymotion-bd-f2)
+let g:WhichKeyDesc_easymotion_s = ",s"
+map ,S <Plug>(easymotion-bd-t2)
+let g:WhichKeyDesc_easymotion_S = ",S"
+
+Plug 'tpope/vim-surround'
+let g:WhichKeyDesc_surround_ys = "ys"
+let g:WhichKeyDesc_surround_ds = "ds"
+let g:WhichKeyDesc_surround_cs = "cs"
+
+set multiple-cursors
+Plug 'terryma/vim-multiple-cursors'
+let g:WhichKeyDesc_mult = "g<A-n>"
+map ,m <Plug>NextWholeOccurrence
+let g:WhichKeyDesc_multiple_m = ",m"
+map ,M <Plug>SkipOccurrence
+let g:WhichKeyDesc_multiple_M = ",M"
+
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdtree'
+Plug 'tommcdo/vim-exchange'
+let g:WhichKeyDesc_exchange = "cx"
+Plug 'vim-scripts/ReplaceWithRegister'
+let g:WhichKeyDesc_replace = "gr"
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'dbakker/vim-paragraph-motion'
+Plug 'kana/vim-textobj-entire'
+
+" Most useful go to commands use g:
+nmap gt <Action>(NextTab)
+let g:WhichKeyDesc_NextTab = "gt"
+nmap gT <Action>(PreviousTab)
+let g:WhichKeyDesc_PrevTab = "gT"
+nmap gE <Action>(GotoPreviousError)
+let g:WhichKeyDesc_errp = "gE"
+nmap ge <Action>(GotoNextError)
+let g:WhichKeyDesc_errn = "ge"
+nmap gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_decl = "gd"
+nmap gD <Action>(GotoTypeDeclaration)
+let g:WhichKeyDesc_tdecla = "gD"
+nmap gb <Action>(Back)
+let g:WhichKeyDesc_tdeclaa = "gb"
+nmap gf <Action>(Forward)
+let g:WhichKeyDesc_tdeclaak = "gf"
+
+" Command Picker using <leader>
+let g:WhichKeyDesc_Window = "<leader>w Manage Windows"
+nmap <leader>ws <Action>(SplitVertically)
+let g:WhichKeyDesc_Window_Split = "<leader>ws Split Vertically"
+nmap <leader>wu <Action>(Unsplit)
+let g:WhichKeyDesc_Window_Unsplit = "<leader>wu Unsplit"
+nmap <leader>wq <Action>(CloseContent)
+let g:WhichKeyDesc_Window_Close = "<leader>wq Close Buffer"
+nmap <leader>wh <Action>(CloseAllToTheLeft)
+let g:WhichKeyDesc_Window_Closeh = "<leader>wh Close All Tabs to left"
+nmap <leader>wl <Action>(CloseAllToTheRight)
+let g:WhichKeyDesc_Window_Closel = "<leader>wl Close All Tabs to right"
+nmap <leader>wx <Action>(CloseAllEditorsButActive)
+let g:WhichKeyDesc_Window_Closex = "<leader>wx Close All Tabs but active"
+nmap <leader>wr <Action>(ReopenClosedTab)
+let g:WhichKeyDesc_Window_Reopen = "<leader>wr Reopen Last Closed Buffer"
+"nnoremap <leader>ww <c-w>w
+"let g:WhichKeyDesc_Window_Switch = "<leader>ww Switch Split"
+"map <leader>wt <Action>(NextTab)
+"let g:WhichKeyDesc_Window_NTab = "<leader>wt Next Tab"
+"map <leader>wp <Action>(PreviousTab)
+"let g:WhichKeyDesc_Window_PTab = "<leader>wp Previous Tab"
+nmap <leader>wc <Action>(HideAllWindows)
+let g:WhichKeyDesc_Window_Hide = "<leader>wc Hide All Windows"
+
+let g:WhichKeyDesc_Folding = "<leader>z Folding"
+nmap <leader>zc <Action>(CollapseRegion)
+let g:WhichKeyDesc_Folding_c = "<leader>zc Collapse Region"
+nmap <leader>ze <Action>(ExpandRegion)
+let g:WhichKeyDesc_Folding_e = "<leader>ze Expand Region"
+nmap <leader>zd <Action>(CollapseAllRegions)
+let g:WhichKeyDesc_Folding_C = "<leader>zd Collapse All Regions"
+nmap <leader>zf <Action>(ExpandAllRegions)
+let g:WhichKeyDesc_Folding_E = "<leader>zf Expand All Regions"
+
+let g:WhichKeyDesc_Terminal = "<leader>t Terminal and Run"
+nmap <leader>to <Action>(Terminal.OpenInTerminal)
+let g:WhichKeyDesc_Terminal_to = "<leader>to Open New Terminal in Path"
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_Terminal_tt = "<leader>tt Open Terminal"
+nmap <leader>tr <Action>(ContextRun)
+let g:WhichKeyDesc_Terminal_tr = "<leader>tr Context Run"
+nmap <leader>ts <Action>(RunClass)
+let g:WhichKeyDesc_Terminal_ts = "<leader>ts Run Class"
+nmap <leader>tc <Action>(RerunTests)
+let g:WhichKeyDesc_Terminal_tc = "<leader>tc Run Tests"
+nmap <leader>tf <Action>(RerunFailedTests)
+let g:WhichKeyDesc_Terminal_tf = "<leader>tf Run Failed Tests"
+nmap <leader>tp <Action>(ChooseRunConfiguration)
+let g:WhichKeyDesc_Terminal_tp = "<leader>tp Choose Run Configuration"
+
+let g:WhichKeyDesc_Ref = "<leader>r Refactorings"
+nmap <leader>rp <Action>(Refactorings.QuickListPopupAction)
+let g:WhichKeyDesc_Ref_p = "<leader>rp Refactor Popup"
+nmap <Leader>rf <Action>(ReformatCode)
+let g:WhichKeyDesc_Ref_f = "<leader>rf Reformat Code"
+nmap <Leader>rn <Action>(RenameElement)
+let g:WhichKeyDesc_Ref_n = "<leader>rn Rename Element"
+nmap <leader>ra <Action>(ShowIntentionActions)
+let g:WhichKeyDesc_Ref_a = "<leader>ra Intention Actions"
+nmap <leader>rg <Action>(Generate)
+let g:WhichKeyDesc_Ref_g = "<leader>rg Generate"
+
+let g:WhichKeyDesc_Find = "<leader>f Find and Replace"
+nmap <leader>fr <Action>(Replace)
+let g:WhichKeyDesc_Find_rep = "<leader>fr Replace"
+nmap <leader>ff <Action>(SearchEverywhere)
+let g:WhichKeyDesc_Find_find = "<leader>ff Search Everywhere"
+nmap <leader>fp <Action>(FindInPath)
+let g:WhichKeyDesc_Find_findp = "<leader>fp Find in Path"
+
+let g:WhichKeyDesc_vim = "<leader>v VIM"
+nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_vim_r = "<leader>vr Reload .ideavimrc"
+nnoremap <leader>ve :e C:/Users/jaime/.ideavimrc<CR>
+let g:WhichKeyDesc_vim_e = "<leader>ve Edit .ideavimrc"
+
+let g:WhichKeyDesc_Show = "<leader>s Show"
+nmap <leader>su <Action>(FindUsages)
+let g:WhichKeyDesc_Show_us = "<leader>su Show Usages"
+nmap <leader>sl <Action>(RecentLocations)
+let g:WhichKeyDesc_Show_lo = "<leader>sl Recent Locations"
+"map <leader>sr <Action>(GotoRelated)
+"let g:WhichKeyDesc_Show_rel = "<leader>sr Goto Related"
+nmap <leader>sd <Action>(QuickJavaDoc)
+let g:WhichKeyDesc_Show_doc = "<leader>sd Documentation"
+nmap <leader>se <Action>(ShowErrorDescription)
+let g:WhichKeyDesc_Show_er = "<leader>se Error Description"
+nmap <leader>sa <Action>(GotoAction)
+let g:WhichKeyDesc_Show_ac = "<leader>sa Actions"
+nmap <leader>sf <Action>(RecentFiles)
+let g:WhichKeyDesc_Show_fi = "<leader>sf Recent Files"
+nmap <leader>sc <Action>(RecentChangedFiles)
+let g:WhichKeyDesc_Show_sc = "<leader>sc Recent Changed Files"
+
+let g:WhichKeyDesc_Go = "<leader>g Go"
+nmap <leader>gb <Action>(Back)
+let g:WhichKeyDesc_Go_b = "<leader>gb Go Back"
+nmap <leader>gc <Action>(VcsShowPrevChangeMarker)
+let g:WhichKeyDesc_Go_c = "<leader>gc Go to Previous Git Change"
+nmap <leader>gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_Go_d = "<leader>gd Go to Declaration"
+nmap <leader>ge <Action>(JumpToLastChange)
+let g:WhichKeyDesc_Go_e = "<leader>ge Go to Last Change"
+nmap <leader>gf <Action>(Forward)
+let g:WhichKeyDesc_Go_f = "<leader>gf Go Forward"
+nmap <leader>gi <Action>(GotoImplementation)
+let g:WhichKeyDesc_Go_i = "<leader>gi Go to Implementation"
+nmap <leader>gj <Action>(GotoClass)
+let g:WhichKeyDesc_Go_j = "<leader>gj Go to Class"
+nmap <leader>gm <Action>(MethodDown)
+let g:WhichKeyDesc_Go_m = "<leader>gm Go to next method"
+nmap <leader>gn <Action>(VcsShowNextChangeMarker)
+let g:WhichKeyDesc_Go_n = "<leader>gn Go to Next Git Change"
+nmap <leader>gp <Action>(GotToSuperMethod)
+let g:WhichKeyDesc_Go_p = "<leader>gp Go to Super Method"
+nmap <leader>gt <Action>(GotoTest)
+let g:WhichKeyDesc_Go_t = "<leader>gt Go to Test"
+nmap <leader>gu <Action>(MethodUp)
+let g:WhichKeyDesc_Go_u = "<leader>gu Go to previous method"
+nmap <leader>gw <Action>(GotoPreviousError)
+let g:WhichKeyDesc_Go_w = "<leader>gw Go to Previous Error"
+nmap <leader>gx <Action>(GotoNextError)
+let g:WhichKeyDesc_Go_x = "<leader>gx Go to Next Error"
+
+let g:WhichKeyDesc_Bookmark = "<leader>b Bookmarks"
+nmap <leader>bt <Action>(ToggleBookmark)
+let g:WhichKeyDesc_Bookmark_t = "<leader>bt Toggle Bookmark"
+nmap <leader>bs <Action>(ShowBookmarks)
+let g:WhichKeyDesc_Bookmark_s = "<leader>bs Show Bookmarks"
+
+let g:WhichKeyDesc_editor = "<leader>e Editor"
+nmap <leader>eh <Action>(EditorScrollLeft)
+let g:WhichKeyDesc_editorh = "<leader>eh Scroll Left"
+nmap <leader>ej <Action>(EditorScrollDown)
+let g:WhichKeyDesc_editorj = "<leader>ej Scroll Down"
+nmap <leader>ek <Action>(EditorScrollUp)
+let g:WhichKeyDesc_editork = "<leader>ek Scroll Up"
+nmap <leader>el <Action>(EditorScrollRight)
+let g:WhichKeyDesc_editorl = "<leader>el Scroll Right"
+
+let g:WhichKeyDesc_Debug = "<leader>d Debug"
+nmap <leader>dc <Action>(ChooseDebugConfiguration)
+let g:WhichKeyDesc_Debug_c = "<leader>dc Choose Debug Configuration"
+nmap <leader>dg <Action>(Debug)
+let g:WhichKeyDesc_Debug_g = "<leader>dg Debug"
+nmap <leader>dr <Action>(Debugger.RemoveAllBreakpoints)
+let g:WhichKeyDesc_Debug_r = "<leader>dr Remove All Breakpoints"
+nmap <leader>ds <Action>(Stop)
+let g:WhichKeyDesc_Debug_s = "<leader>ds Stop"
+nmap <leader>dt <Action>(ToggleLineBreakpoint)
+let g:WhichKeyDesc_Debug_t = "<leader>dt Toggle Line Breakpoint"
+nmap <leader>dv <Action>(ViewBreakpoints)
+let g:WhichKeyDesc_Debug_v = "<leader>dv View Breakpoints"
+
+let g:WhichKeyDesc_Git = "<leader>c Git"
+nmap <leader>ca <Action>(Annotate)
+let g:WhichKeyDesc_Git_a = "<leader>ca Annotate"
+nmap <leader>cb <Action>(Git.Branches)
+let g:WhichKeyDesc_Git_b = "<leader>cb Branches"
+nmap <leader>cc <Action>(Git.ResolveConflicts)
+let g:WhichKeyDesc_Git_c = "<leader>cc Resolve Conflicts"
+nmap <leader>cl <Action>(Vcs.Show.Log)
+let g:WhichKeyDesc_Git_l = "<leader>cl Show Log"
+nmap <leader>cm <Action>(Git.Merge)
+let g:WhichKeyDesc_Git_m = "<leader>cm Merge"
+nmap <leader>co <Action>(Github.Open.In.Browser)
+let g:WhichKeyDesc_Git_o = "<leader>co Open in Browser"
+nmap <leader>cp <Action>(Git.Pull)
+let g:WhichKeyDesc_Git_p = "<leader>cp Pull"
+nmap <leader>cr <Action>(Git.Rebase)
+let g:WhichKeyDesc_Git_r = "<leader>cr Rebase"
+nmap <leader>cs <Action>(Vcs.Show.Local.Changes)
+let g:WhichKeyDesc_Git_s = "<leader>cs Show Local Changes"
+nmap <leader>cu <Action>(Git.Push)
+let g:WhichKeyDesc_Git_u = "<leader>cu Push"
+nmap <leader>cv <Action>(Compare.LastVersion)
+let g:WhichKeyDesc_Git_v = "<leader>cv Compare Last Version"
+nmap <leader>cw <Action>(ActivateCommitToolWindow)
+let g:WhichKeyDesc_Git_w = "<leader>cw Commit Tool Window"
+
+"---------------------------
+
+""" Common settings -------------------------
+" 搜索高亮
+set hlsearch
+" 模式搜索实时预览，增量搜索
+set incsearch
+" 忽略大小写
+set ignorecase
+" 智能忽略大小写
+set smartcase
+" 显示当前的模式
+set showmode
+" 显示当前行号
+set number
+
+set scrolloff=5
+" 设置命令历史记录条数
+set history=100
+" 共享系统粘贴板
+set clipboard=unnamed
+" 基于缩进或语法进行代码折叠
+set foldmethod=syntax
+" 启动vim 时关闭折叠代码
+set nofoldenable
+" 关闭兼容vi
+set nocompatible
+" 开启高亮语法
+syntax enable
+" 允许使用指定语法高亮配色方案替换默认方案
+syntax on
+" vim 智能命令行模式智能不全
+set wildmenu
+" 总是显示状态栏
+set laststatus=2
+" 显示光标当前位置
+set ruler
+" 禁止折行
+set nowrap
+" 将制表符扩展为空格
+set expandtab
+
+
+" 设置编辑时制表符占用空格数
+set shiftwidth=1
+" 中英文自动切换，开启美式键盘
+set keep-english-in-normal-and-restore-in-insert
+
+
+""" Idea specific settings ------------------
+set ideajoin
+
+
+""" Strict mode for development ---------------
+set ideastrictmode
+""""""""""""""""""""""""""""""""""""""easymotion""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""effective""""""""""""""""""""""""""""""""
+nnoremap <Leader>sw :action SurroundWith<CR>
+nnoremap <Leader>oi :action OptimizeImports<CR>
+nnoremap <Leader>tz :action ToggleZenMode<CR>
+nnoremap <leader>ns :action NewScratchFile<CR>
+nnoremap <Leader>ic :action InspectCode<CR>
+" 断行
+nnoremap <CR> a<CR><Esc>k$
+" I think it's a better solution
+nnoremap U <C-R>
+nnoremap dam :action MethodUp<CR>f{vi{:g/^$/d<CR>dap
+""""""""""""""""""""""""""""""""""""""Window""""""""""""""""""""""""""""""""
+nnoremap <Leader>ww <C-W>w
+nnoremap <Leader>wd <C-W>c
+nnoremap <Leader>wj <C-W>j
+nnoremap <Leader>wk <C-W>k
+nnoremap <Leader>wh <C-W>h
+nnoremap <Leader>wl <C-W>l
+nnoremap <Leader>ws <C-W>s
+nnoremap <Leader>wv <C-W>v
+nnoremap <Leader>ot :action ActivateTerminalToolWindow<CR>
+""""""""""""""""""""""""""""""""""""""Fix""""""""""""""""""""""""""""""""
+nnoremap <Leader>fd :action FixDocComment<CR>
+nnoremap <Leader>me :action RenameElement<CR>
+nnoremap <Leader>mf :action RenameFile<CR>
+nnoremap <Leader>fc :action ReformatCode<CR>
+vnoremap <Leader>em :action ExtractMethod<CR>
+vnoremap <Leader>ei :action ExtractInterface<CR>
+""""""""""""""""""""""""""""""""""""""Vcs""""""""""""""""""""""""""""""""
+nnoremap <Leader>vp :action Vcs.QuickListPopupAction<CR>
+nnoremap <Leader>vb :action Vcs.ShowBranches<CR>
+nnoremap <leader>vh :action Vcs.ShowTabbedFileHistory<CR>
+""""""""""""""""""""""""""""""""""""""Generate""""""""""""""""""""""""""""""""
+nnoremap <Leader>im :action ImplementMethods<CR>
+nnoremap <Leader>om :action OverrideMethods<CR>
+nnoremap <Leader>nc :action NewClass<CR>
+""""""""""""""""""""""""""""""""""""""Debug""""""""""""""""""""""""""""""""
+nnoremap <leader>tb :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>sb :action ViewBreakpoints<CR>
+""""""""""""""""""""""""""""""""""""""Start and stop""""""""""""""""""""""""""""""""
+
+nnoremap <Leader>d :action Debug<CR>
+nnoremap <Leader>rc :action Stop<CR>
+nnoremap <Leader>rr :action Rerun<CR>
+nnoremap <Leader>rm :action RunClass<CR>
+nnoremap <Leader>cd :action ChooseDebugConfiguration<CR>
+nnoremap <Leader>cr :action ChooseRunConfiguration<CR>
+""""""""""""""""""""""""""""""""""""""Show""""""""""""""""""""""""""""""""
+nnoremap <Leader>sd :action ShowUmlDiagram<CR>
+nnoremap <Leader>th :action TypeHierarchy<CR>
+nnoremap <Leader>fu :action FindUsages<CR>
+nnoremap <Leader>su :action ShowUsages<CR>
+nnoremap <Leader>mh :action MethodHierarchy<CR>
+nnoremap <Leader>ss :action ShowSettings<CR>
+nnoremap <Leader>sp :action ShowFilePath<CR>
+nnoremap <Leader>se :action ShowErrorDescription<CR>
+nnoremap <Leader>rf :action RecentFiles<CR>
+nnoremap <Leader>jd :action QuickJavaDoc<CR>
+nnoremap <leader>a :action Annotate<CR>
+nnoremap <leader>sn :action ShowNavBar<CR>
+""""""""""""""""""""""""""""""""""""""popup""""""""""""""""""""""""""""""""
+nnoremap <Leader>ps :action FileStructurePopup<CR>
+nnoremap <leader>pg :action Generate<CR>
+nnoremap <Leader>pm :action ShowPopupMenu<CR>
+""""""""""""""""""""""""""""""""""""""Search""""""""""""""""""""""""""""""""
+nnoremap <Leader>ga :action GotoAction<CR>
+nnoremap <Leader>gc :action GotoClass<CR>
+nnoremap <Leader>gf :action GotoFile<CR>
+nnoremap <Leader>gs :action GotoSymbol<CR>
+""""""""""""""""""""""""""""""""""""""Jump""""""""""""""""""""""""""""""""
+nnoremap ge :action GotoNextError<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap [[ :action MethodUp<CR>
+nnoremap gf :NERDTree <CR>

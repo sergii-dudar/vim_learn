@@ -1,0 +1,52 @@
+8.3. Update
+Update till order implemented by branchOrderUpdate graphql mutation, that based on next base steps.
+
+Order can be updated only till it’s not in PAID status.
+deleted\
+added order consignments and consignment items.
+During handling 
+mutation, payload should pass next validations:
+
+orderId is exists
+
+confirmationStatus is not PAID
+hello word.
+dello, it's some text I want to insert
+
+consignments 
+all new consignment.ids and item.ids are unique and not exists
+
+all exists consignment.ids and item.ids exists in store and belongs to updating orderId
+epoccId it 
+if provided should exists, be SIGNED and file path should not e gooooooo
+check all required and not (product, branch etc) valid and exists
+hrequierelated ello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello 
+generate ticketNumbers (see 8.1) and created platform order model
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello some test something!
+hello!
+hello!
+hello!
+hello!
+hello!
+
+in case for exists consignments and items paymentType or fulfilmentType change, re generate ticketNumbers, and de-allocate not needed anymore ticketNumber (after this this ticketNumbers will be used to another orders)
+
+store updated order state to store
+
+send updated order state to digital-order topic to notify all listeners
+
+send success response
