@@ -56,11 +56,33 @@ set NERDTree            "https://github.com/JetBrains/ideavim/wiki/NERDTree-supp
 set exchange            "https://github.com/tommcdo/vim-exchange/blob/master/doc/exchange.txt"
 set textobj-indent      "https://www.seanh.cc/2020/08/08/vim-indent-object/, https://github.com/michaeljsmith/vim-indent-object/blob/master/doc/indent-object.txt"
 
+"========================================================================================"
+"========================================================================================"
+"===============================VIM KEY Mapping ========================================="
+"========================================================================================"
+"========================================================================================"
+
+" (Move to line start/end)"
+map H ^
+map L $
+
+" (Move between blocks)"
+map J }
+map K {
+
+" (Block ident)"
+vmap < <gv
+vmap > >gv
+
+"(Copy to system clipboard)"
+"vmap <C-S-c> +y "
+
 "================================ NERDTree config ================================="
 map <C-p> :NERDTree<CR>
 let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
-
+nnoremap <leader>ft :NERDTree<CR>
+nnoremap <leader>fT :NERDTreeFind<CR>
 
 "================================ highlightedyank config ================================="
 "let g:highlightedyank_highlight_color = "rgba(172, 205, 218, 1)""
@@ -78,8 +100,8 @@ xmap <C-p> <Plug>RemoveOccurrence
 map <leader>k <Plug>(easymotion-s)
 map <leader>j <Plug>(easymotion-f)
 
-"================================ tmpl config ================================="
-" TODO:"
+"================================ macro ================================="
+nnoremap R @q " R to execute q macro
 
 "================================ tmpl config ================================="
 " TODO:"
@@ -94,7 +116,38 @@ map <leader>j <Plug>(easymotion-f)
 "========================================================================================"
 
 
-"========================================================================================"
+"======================================  Run & Debug ==============================================="
+nmap <leader>a      <Action>(Run)
+nmap <leader>q      <Action>(Stop)
+
+nnoremap <leader>rd <Action>(ChooseDebugConfiguration)
+nnoremap <leader>rD <Action>(ChooseRunConfiguration)
+nnoremap <leader>rp <Action>(Debug)
+nnoremap <leader>rP <Action>(Run)
+nnoremap <leader>rc <Action>(DebugClass)
+map <leader>rr <Action>(RunClass)
+nnoremap <leader>rr <Action>(Rerun)
+nnoremap <leader>rs <Action>(Stop)
+nnoremap <leader>ra <Action>(RunAnything)
+map <leader>rc <Action>(ContextRun)
+map <leader>rt <Action>(RunTests)
+nmap <leader>tf <Action>(RerunFailedTests)
+
+"======================================  Debugger ==============================================="
+noremap <leader>de <action>(QuickEvaluateExpression)
+noremap <leader>dE <action>(EvaluateExpression)
+vnoremap <leader>di <Action>(Debugger.AddInlineWatch)
+vnoremap <leader>dw <Action>(Debugger.AddToWatch)
+nnoremap <leader>db <Action>(EditBrakpoint)
+nnoremap <leader>dt <Action>(ToggleLineBreakpoint)
+nnoremap <leader>dr <Action>(Debugger.RemoveAllBreakpointsInFile)
+nnoremap <leader>dR <Action>(Debugger.RemoveAllBreakpoints)
+nnoremap <leader>dm <Action>(XDebugger.MuteBreakpoints)
+nnoremap <leader>dc <Action>(ForceRunToCursor)
+nnoremap <C-j> <Action>(StepOver)
+nnoremap <C-k> <Action>(Resume)
+nnoremap <C-h> <Action>(StepOut)
+nnoremap <C-l> <Action>(ForceStepInto)
 
 
 
@@ -103,144 +156,124 @@ map <leader>j <Plug>(easymotion-f)
 
 
 
+"======================================= Code ================================================="
+nmap <leader>i      <Action>(Generate)
+nmap <leader>o      <Action>(OptimizeImports)
+"nmap <leader>n      <Action>(NewClass)"
+nmap <leader>r      <Action>(ReformatCode)
 
-
-
-" run "
-nmap <leader>a      <action>(Run)
-nmap <leader>cc     <action>(CloseEditor)
-nmap <leader>cp     <action>(CloseProject)
-nmap <leader>cs     <action>(QuickChangeScheme)
-"nmap <leader>e      <action>(ActivateProjectToolWindow)"
-nmap <leader>e      <action>(SelectInProjectView)
-nmap <leader>h      <action>(HideActiveWindow)
-nmap <leader>i      <action>(Generate)
-nmap <leader>m      <action>(Git.Menu)
-"nmap <leader>n      <action>(NewClass)"
-nmap <leader>o      <action>(OptimizeImports)
-nmap <leader>q      <action>(Stop)
-nmap <leader>r      <action>(ReformatCode)
-nmap <leader>s      <action>(GlobalSettings)
-nnoremap <Leader>sw :action SurroundWith<CR>
-map <leader>om <Action>(OverrideMethods)
 map <leader>im <Action>(ImplementMethods)
-nmap \\o <Action>(SelectAllOccurrences)
 nmap \\ic <Action>(InspectCode)
+map <leader>om <Action>(OverrideMethods)
+nnoremap <Leader>sw <Action>(SurroundWith)
+
+nmap <leader>cs     <Action>(QuickChangeScheme)
+
+nmap <leader>s      <Action>(GlobalSettings)
+
+"======================================= Refactoring ================================================="
+IntroduceActionsGroup
+IntroduceConstant                                  <M-A-C>
+IntroduceField                                     <M-A-F>
+IntroduceFunctionalParameter                       <M-A-S-P>
+IntroduceFunctionalVariable
+IntroduceParameter                                 <M-A-P>
+IntroduceParameterObject
+IntroduceVariable 
+map <leader>re <Action>(Refactorings.QuickListPopupAction)
+map <leader>uw <Action>(Unwrap)
+map <leader>sw <Action>(SurroundWith)
+map <leader>sd <Action>(SafeDelete)
+map <leader>oi <Action>(OptimizeImports)
+
+nnoremap <Leader>cr <Action>(CopyReference)
+nnoremap <Leader>em <Action>(ExtractMethod)
+
+" Join Lines"
+map <leader>j <Action>(EditorJoinLines)
+EditorSortLines
+EditorSplitLine  
+
+map gr <Action>(RefactoringMenu)
+map gH <Action>(QuickActions)
+map ga <Action>(ShowIntentionActions)
+nnoremap == :action ReformatCode \| action OptimizeImports<CR>
+
+"======================================= Rename ================================================="
+nnoremap <Leader>me <Action>(RenameElement)
+nnoremap <Leader>mf <Action>(RenameFile)
+nnoremap <Leader>fc <Action>(ReformatCode)
+
+"======================================= New ... ================================================="
+map <leader>nn <Action>(NewElement)
+map <leader>nd <Action>(NewDir)
+map <leader>nf <Action>(NewFile)
+map <leader>np <Action>(NewProject)
+map <leader>nm <Action>(NewModule)
 
 
-" Reformat the current line only"
-map <leader>l V<Action>(ReformatCode)
 
-"================================ Tabs ================================="
-nmap <Tab>     <action>(NextTab)
-nmap <S-Tab>   <action>(PreviousTab)
-nmap <leader>1 <action>(GoToTab1)
-nmap <leader>2 <action>(GoToTab2)
-nmap <leader>3 <action>(GoToTab3)
-nmap <leader>4 <action>(GoToTab4)
-nmap <leader>5 <action>(GoToTab5)
-nmap <leader>6 <action>(GoToTab6)
-nmap <leader>7 <action>(GoToTab7)
-nmap <leader>8 <action>(GoToTab8)
-nmap <leader>9 <action>(GoToTab9)
-map <leader>0 <action>(GoToLastTab)
+"======================================= Comment ================================================="
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+nnoremap <Leader>fd <Action>(FixDocComment) "https://blog.jetbrains.com/idea/2012/09/fix-doc-comment-action-is-available/"
 
-" editor"
-map <leader>xx <Action>(CloseContent)
-map <leader>xa <Action>(CloseAllEditors)
-map <leader>xo <Action>(CloseAllEditorsButActive)
-map <leader>xp <Action>(CloseAllUnpinnedEditors)
-map <leader>p <Action>(PinActiveEditorTab)
 
-map <leader>sh <Action>(MoveTabLeft)
-map <leader>sj <Action>(MoveTabDown)
-map <leader>sk <Action>(MoveTabUp)
-map <leader>sl <Action>(MoveTabRight)
 
-" (Pane vertically split/horizontally split/close)"
-map <leader>sH <Action>(SplitHorizontally)
-map <leader>sV <Action>(SplitVertically)
-nmap <leader>wu <Action>(Unsplit)
-map <C-p> <Action>(JumpToLastWindow)
-map <M-i> <Action>(PrevSplitter)
-map <M-o> <Action>(NextSplitter)
+"======================================= Show ================================================="
 
-" hierarchy"
+nmap \\o <Action>(SelectAllOccurrences)
+
 nmap <leader>hc <Action>(CallHierarchy)
 nmap <leader>hm <Action>(MethodHierarchy)
 nmap <leader>ht <Action>(TypeHierarchy)
-
-" (Move between panes top/bottom/left/right)"
-map <C-k> <C-w>k
-map <C-j> <C-w>j
-map <C-h> <C-w>h
-map <C-l> <C-w>l
-
-nnoremap tm <Action>(MoveEditorToOppositeTabGroup)
-nnoremap to <Action>(OpenEditorInOppositeTabGroup)
-
-nmap <leader>wh <Action>(CloseAllToTheLeft)
-nmap <leader>wl <Action>(CloseAllToTheRight)
-nmap <leader>wr <Action>(ReopenClosedTab)
-nmap <leader>wc <Action>(HideAllWindows)
-
-" (Move line up/down)"
-map <M-k> <Action>(MoveLineUp)
-map <M-j> <Action>(MoveLineDown)
-
-" (Comment)"
-map <leader>c <Action>(CommentByLineComment)
-map <leader>C <Action>(CommentByBlockComment)
-
-"================================ macro ================================="
-nnoremap R @q " R to execute q macro
-
-"================================ terminal ================================="
-nmap <leader>tt <Action>(ActivateTerminalToolWindow)
-nmap <leader>tc <Action>(Terminal.OpenInTerminal) " OpenTerminal with current dir
-
-
-"================================ search ================================="
-noremap <Leader><Leader> :action SearchEverywhere<CR>
-nmap <leader>fr <Action>(Replace)
-nmap <leader>fp <Action>(FindInPath)
-noremap <leader>sf :action Find<CR>
-noremap <leader>sR :action ReplaceInPath<CR>
-noremap <leader>sc :nohlsearch<CR>
 nmap <Leader>n <Action>(LocalHistory.ShowHistory)
 xmap <Leader>n <Action>(LocalHistory.ShowSelectionHistory)
-
-
-
-
-
-" Pick action/class/symbol/file/recent change file/recent file"
-nnoremap <leader>fb :action Switcher<CR>
-nnoremap <leader>ff :action GotoFile<CR>
-nnoremap <leader>fc :action GotoClass<CR>
-nnoremap <leader>fs :action GotoSymbol<CR>
-nnoremap <leader>fa :action GotoAction<CR>
-nnoremap <leader>fd :action GotoDatabaseObject<CR>
 map <leader>sf <Action>(ShowFilePath)
 map <leader>si <Action>(SelectIn)
 map \\sw <Action>($SearchWeb)
+map <leader>fu <Action>(FindUsages)
+map gf <Action>(ShowUsages)
 
-nnoremap <leader>ft :NERDTree<CR>
-nnoremap <leader>fT :NERDTreeFind<CR>
+map <leader>hl <Action>(HighlightUsagesInFile)
+map <leader>qp <Action>(QuickPreview)
+map <leader>qd <Action>(QuickDefinition)
+map <leader>qD <Action>(QuickTypeDefinition)
 
+"======================================= View mode ================================================="
+map <leader>vf <Action>(ToggleFullScreen)
+map <leader>vv <Action>(ToggleDistractionFreeMode)
+map <leader>vp <Action>(TogglePresentationMode)
 
-" navigation action"
+"======================================= Navigation ================================================="
+map <M-k> <Action>(MoveLineUp)
+map <M-j> <Action>(MoveLineDown)
+
+noremap <Leader><Leader> <Action>(SearchEverywhere)
+nmap <leader>fr <Action>(Replace)
+nmap <leader>fp <Action>(FindInPath)
+noremap <leader>sf <Action>(Find)
+noremap <leader>sR <Action>(ReplaceInPath)
+noremap <leader>sc :nohlsearch<CR>
+
+nnoremap <leader>fb <Action>(Switcher)
+nnoremap <leader>ff <Action>(GotoFile)
+nnoremap <leader>fc <Action>(GotoClass)
+nnoremap <leader>fs <Action>(GotoSymbol)
+nnoremap <leader>fa <Action>(GotoAction)
+nnoremap <leader>fd <Action>(GotoDatabaseObject)
+
 nmap <leader>gp <Action>(GotToSuperMethod)
 map gT <Action>(TextSearchAction)
 map gd <Action>(GotoDeclaration)
 map gI <Action>(QuickImplementations)
 
 map gD <Action>(GotoTypeDeclaration)
-nnoremap gi :action GotoImplementation<CR>
-nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gi <Action>(GotoImplementation)
+nnoremap gs <Action>(GotoSuperMethod)
 map gt <Action>(GotoTest)
 nmap <Leader>j <Action>(ShowNavBar)
-noremap  <Leader>k mo:action KJumpAction<CR>
+noremap  <Leader>k <Action>(KJumpAction)
 nmap [u <Action>(GotoPrevElementUnderCaretUsage)
 nmap ]u <Action>(GotoNextElementUnderCaretUsage)
 nmap [o <Action>(PreviousOccurence)
@@ -263,36 +296,63 @@ nmap <leader>gu <Action>(MethodUp)
 nmap <leader>gw <Action>(GotoPreviousError)
 nmap <leader>gx <Action>(GotoNextError)
 
-" zen"
-map <leader>z <Action>(ToggleZenMode)
+"======================================= Project Tree ================================================="
+nmap <leader>e      <Action>(ActivateProjectToolWindow)
+nmap <leader>e      <Action>(SelectInProjectView)
 
 
-" Introduce refactoring"
-IntroduceActionsGroup
-IntroduceConstant                                  <M-A-C>
-IntroduceField                                     <M-A-F>
-IntroduceFunctionalParameter                       <M-A-S-P>
-IntroduceFunctionalVariable
-IntroduceParameter                                 <M-A-P>
-IntroduceParameterObject
-IntroduceVariable 
-map <leader>re <Action>(Refactorings.QuickListPopupAction)
-map <leader>uw <Action>(Unwrap)
-map <leader>sw <Action>(SurroundWith)
-map <leader>sd <Action>(SafeDelete)
-map <leader>oi <Action>(OptimizeImports)
 
-" IDEA action"
-nnoremap <Leader>cr :action CopyReference<CR>
-nnoremap <Leader>em :action ExtractMethod<CR>
+"======================================= Git ================================================="
+nmap <leader>m      <Action>(Git.Menu)
+nmap <leader>ca <Action>(Annotate)
 
+"======================================= Tabs ================================================="
+" (Move between panes top/bottom/left/right)"
+map <C-k> <C-w>k
+map <C-j> <C-w>j
+map <C-h> <C-w>h
+map <C-l> <C-w>l
 
-" window action"
-nnoremap <leader>wc :action ActivateCommitToolWindow<CR>
-nnoremap <leader>wd :action ActivateDebugToolWindow<CR>
-nnoremap <leader>wr :action ActivateRunToolWindow<CR>
-nnoremap <leader>wg :action ActivateVersionControlToolWindow<CR>
-nnoremap <leader>wm :action ActivateMavenToolWindow<CR>
+nmap <Tab>     <Action>(NextTab)
+nmap <S-Tab>   <Action>(PreviousTab)
+nmap <leader>1 <Action>(GoToTab1)
+nmap <leader>2 <Action>(GoToTab2)
+nmap <leader>3 <Action>(GoToTab3)
+nmap <leader>4 <Action>(GoToTab4)
+nmap <leader>5 <Action>(GoToTab5)
+nmap <leader>6 <Action>(GoToTab6)
+nmap <leader>7 <Action>(GoToTab7)
+nmap <leader>8 <Action>(GoToTab8)
+nmap <leader>9 <Action>(GoToTab9)
+map <leader>0 <Action>(GoToLastTab)
+
+map <leader>sh <Action>(MoveTabLeft)
+map <leader>sj <Action>(MoveTabDown)
+map <leader>sk <Action>(MoveTabUp)
+map <leader>sl <Action>(MoveTabRight)
+map <leader>p <Action>(PinActiveEditorTab)
+
+nnoremap tm <Action>(MoveEditorToOppositeTabGroup)
+nnoremap to <Action>(OpenEditorInOppositeTabGroup)
+
+nmap <leader>wh <Action>(CloseAllToTheLeft)
+nmap <leader>wl <Action>(CloseAllToTheRight)
+nmap <leader>wr <Action>(ReopenClosedTab)
+nmap <leader>wc <Action>(HideAllWindows)
+
+" (Pane vertically split/horizontally split/close)"
+map <leader>sH <Action>(SplitHorizontally)
+map <leader>sV <Action>(SplitVertically)
+nmap <leader>wu <Action>(Unsplit)
+map <C-p> <Action>(JumpToLastWindow)
+map <M-i> <Action>(PrevSplitter)
+map <M-o> <Action>(NextSplitter)
+
+nnoremap <leader>wc <Action>(ActivateCommitToolWindow)
+nnoremap <leader>wd <Action>(ActivateDebugToolWindow)
+nnoremap <leader>wr <Action>(ActivateRunToolWindow)
+nnoremap <leader>wg <Action>(ActivateVersionControlToolWindow)
+nnoremap <leader>wm <Action>(ActivateMavenToolWindow)
 
 nmap <leader>wk <Action>(StretchSplitToTop)
 nmap <leader>wj <Action>(StretchSplitToBottom)
@@ -300,75 +360,19 @@ nmap <leader>wh <Action>(StretchSplitToLeft)
 nmap <leader>wl <Action>(StretchSplitToRight)
 map <leader>wm <Action>(MaximizeEditorInSplit)
 map <leader>wu <Action>(UnsplitAll)
-nnoremap zn :action ToggleDistractionFreeMode<CR>
+nnoremap zn <Action>(ToggleDistractionFreeMode)
+"======================================= Editor ================================================="
+nmap <leader>cc     <Action>(CloseEditor)
+nmap <leader>cp     <Action>(CloseProject)
 
+map <leader>xx <Action>(CloseContent)
+map <leader>xa <Action>(CloseAllEditors)
+map <leader>xo <Action>(CloseAllEditorsButActive)
+map <leader>xp <Action>(CloseAllUnpinnedEditors)
 
-" code action"
-map <leader>fu <Action>(FindUsages)
-map gf <Action>(ShowUsages)
-nnoremap <leader>cg :action IntroduceVariable<CR>
-vnoremap <leader>cg :action IntroduceVariable<CR>
-vnoremap <leader>cs :action SurroundWith<CR>
-map <leader>fs <Action>(FileStructurePopup)
-nnoremap == :action ReformatCode \| action OptimizeImports<CR>
-map gH <Action>(QuickActions)
-map gr <Action>(RefactoringMenu)
-map ga <Action>(ShowIntentionActions)
-map <leader>hl <Action>(HighlightUsagesInFile)
-map <leader>qp <Action>(QuickPreview)
-map <leader>qd <Action>(QuickDefinition)
-map <leader>qD <Action>(QuickTypeDefinition)
+nmap <leader>h      <Action>(HideActiveWindow)
 
-nnoremap <Leader>fd :action FixDocComment<CR> "https://blog.jetbrains.com/idea/2012/09/fix-doc-comment-action-is-available/"
-nnoremap <Leader>me :action RenameElement<CR>
-nnoremap <Leader>mf :action RenameFile<CR>
-nnoremap <Leader>fc :action ReformatCode<CR>
-
-" vim rc"
-nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
-nnoremap <leader>ve :e C:/Users/jaime/.ideavimrc<CR>
-
-
-" (Code fold/expand)"
-map zm <Action>(CollapseRegion)
-map za <Action>(ExpandRegion)
-map zM <Action>(CollapseAllRegions)
-map zR <Action>(ExpandAllRegions)
-map zz <Action>(ExpandCollapseToggleAction)
-
-
-" bookmarks and buffer"
-nnoremap <leader>bb :action Bookmarks<CR>
-nnoremap <leader>bs :action ShowBookmarks<CR>
-nnoremap <leader>bt :action ToggleBookmark<CR>
-nnoremap <leader>bf :action AddToFavorites<CR>
-
-" scroll"
-nmap <leader>eh <Action>(EditorScrollLeft)
-nmap <leader>ej <Action>(EditorScrollDown)
-nmap <leader>ek <Action>(EditorScrollUp)
-nmap <leader>el <Action>(EditorScrollRight)
-
-" debugger"
-noremap <leader>de :action QuickEvaluateExpression<CR>
-noremap <leader>dE :action EvaluateExpression<CR>
-vnoremap <leader>di :action Debugger.AddInlineWatch<CR>
-vnoremap <leader>dw :action Debugger.AddToWatch<CR>
-nnoremap <leader>db :action EditBrakpoint<CR>
-nnoremap <leader>dt :action ToggleLineBreakpoint<CR>
-nnoremap <leader>dr :action Debugger.RemoveAllBreakpointsInFile<CR>
-nnoremap <leader>dR :action Debugger.RemoveAllBreakpoints<CR>
-nnoremap <leader>dm :action XDebugger.MuteBreakpoints<CR>
-nnoremap <leader>dc :action ForceRunToCursor<CR>
-nnoremap <C-j> :action StepOver<CR>
-nnoremap <C-k> :action Resume<CR>
-nnoremap <C-h> :action StepOut<CR>
-nnoremap <C-l> :action ForceStepInto<CR>
-
-" git"
-nmap <leader>ca <Action>(Annotate)
-
-" menu"
+"======================================= Menu ================================================="
 map <leader>mm <Action>(MainMenu)
 map <leader>ma <Action>(AnalyzeMenu)
 map <leader>mb <Action>(BuildMenu)
@@ -379,58 +383,37 @@ map <leader>ms <Action>(ScopeViewPopupMenu)
 map <leader>mt <Action>(EditorTabPopupMenu)
 map <leader>mw <Action>(ToolWindowsGroup)
 
-" Run & Debug"
-nnoremap <leader>rd :action ChooseDebugConfiguration<CR>
-nnoremap <leader>rD :action ChooseRunConfiguration<CR>
-nnoremap <leader>rp :action Debug<CR>
-nnoremap <leader>rP :action Run<CR>
-nnoremap <leader>rc :action DebugClass<CR>
-map <leader>rr <action>(RunClass)
-nnoremap <leader>rr :action Rerun<CR>
-nnoremap <leader>rs :action Stop<CR>
-nnoremap <leader>ra :action RunAnything<CR>
-map <leader>rc <Action>(ContextRun)
-map <leader>rt <Action>(RunTests)
-nmap <leader>tf <Action>(RerunFailedTests)
+"======================================= Scroll ================================================="
+nmap <leader>eh <Action>(EditorScrollLeft)
+nmap <leader>ej <Action>(EditorScrollDown)
+nmap <leader>ek <Action>(EditorScrollUp)
+nmap <leader>el <Action>(EditorScrollRight)
 
-" New ..."
-map <leader>nn <Action>(NewElement)
-map <leader>nd <Action>(NewDir)
-map <leader>nf <Action>(NewFile)
-map <leader>np <Action>(NewProject)
-map <leader>nm <Action>(NewModule)
+"======================================= (Code fold/expand) ================================================="
+map zm <Action>(CollapseRegion)
+map za <Action>(ExpandRegion)
+map zM <Action>(CollapseAllRegions)
+map zR <Action>(ExpandAllRegions)
+map zz <Action>(ExpandCollapseToggleAction)
 
-" View mode"
-map <leader>vf <Action>(ToggleFullScreen)
-map <leader>vv <Action>(ToggleDistractionFreeMode)
-map <leader>vp <Action>(TogglePresentationMode)
+"======================================= Terminal ================================================="
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+nmap <leader>tc <Action>(Terminal.OpenInTerminal) " OpenTerminal with current dir"
 
+"======================================= Zen ================================================="
+map <leader>z <Action>(ToggleZenMode)
 
-" quit"
-nnoremap <leader>qq :action Exit<CR>
-nnoremap <leader>qr :action RestartIde<CR>
-
-" (Move to line start/end)"
-map H ^
-map L $
-
-" (Move between blocks)"
-map J }
-map K {
-
-" (Block ident)"
-vmap < <gv
-vmap > >gv
-
-" Join Lines"
-map <leader>j <Action>(EditorJoinLines)
-EditorSortLines
-EditorSplitLine  
-
-" (Project management)"
+"======================================= Project management ================================================="
 map <leader>pr <Action>(ManageRecentProjects)
 map <leader>pl <Action>(RecentProjectListGroup)
 map <leader>px <Action>(CloseProject)
 
-"(Copy to system clipboard)"
-"vmap <C-S-c> +y "
+"======================================= bookmarks and buffer ================================================="
+nnoremap <leader>bb <Action>(Bookmarks)
+nnoremap <leader>bs <Action>(ShowBookmarks)
+nnoremap <leader>bt <Action>(ToggleBookmark)
+nnoremap <leader>bf <Action>(AddToFavorites)
+
+"======================================= Vim RC ================================================="
+nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
+nnoremap <leader>ve :e ~/.ideavimrc<CR>
