@@ -14,6 +14,12 @@ set number relativenumber
 
 vnoremap . :norm! .<CR>
 
+"inoremap jj <esc>
+"inoremap JJ <esc>
+
+"cnoremap jj <C-c>
+"cnoremap JJ <C-c>
+
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 

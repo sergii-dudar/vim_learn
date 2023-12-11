@@ -27,6 +27,17 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" use JJ and jj to move to normal mode
+"inoremap jj <esc>
+"inoremap JJ <esc>
+
+"cnoremap jj <C-c>
+"cnoremap JJ <C-c>
+
+" The timeoutlen controls how long to wait before recognizing it as a sequence.
+" set timeoutlen=1000 ""https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen"
+set timeoutlen=600 "ms
+
 " repeat comand for visually selected block"
 vnoremap . :norm! .<CR>
 
@@ -62,27 +73,33 @@ set textobj-indent      "https://www.seanh.cc/2020/08/08/vim-indent-object/, htt
 "========================================================================================"
 "========================================================================================"
 
-" (Move to line start/end)"
-map H ^
-map L $
+"======== (Move to line start/end)========
+noremap H ^
+noremap L $
 
-" (Move between blocks)"
-map J }
-map K {
+"======== (Move between blocks)========"
+noremap J }
+noremap K {
 
 " (Block ident)"
-vmap < <gv
-vmap > >gv
+"vmap < <gv
+"vmap > >gv
 
 "(Copy to system clipboard)"
 "vmap <C-S-c> +y "
 
 "================================ NERDTree config ================================="
+"===https://github.com/JetBrains/ideavim/wiki/NERDTree-support#supported-commands=="
 map <C-p> :NERDTree<CR>
 let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
 nnoremap <leader>ft :NERDTree<CR>
 nnoremap <leader>fT :NERDTreeFind<CR>
+
+"======================================= Project Tree ================================================="
+nmap <leader>e      <Action>(ActivateProjectToolWindow)
+nmap <leader>e      <Action>(SelectInProjectView)
+
 
 "================================ highlightedyank config ================================="
 "let g:highlightedyank_highlight_color = "rgba(172, 205, 218, 1)""
@@ -93,8 +110,8 @@ nmap <leader>n <Plug>NextWholeOccurrence
 xmap <leader>n <Plug>NextWholeOccurrence
 nmap g<C-n> <Plug>NextOccurrence
 xmap g<C-n> <Plug>NextOccurrence
-xmap <C-x> <Plug>SkipOccurrence
-xmap <C-p> <Plug>RemoveOccurrence
+"xmap <C-x> <Plug>SkipOccurrence
+"xmap <C-p> <Plug>RemoveOccurrence
 
 "================================ easymotion ================================="
 map <leader>k <Plug>(easymotion-s)
@@ -109,100 +126,134 @@ nnoremap R @q " R to execute q macro
 "================================ tmpl config ================================="
 " TODO:"
 
+
+"noremap x 5x
+"inoremap <C-X> 5x
+"inoremap <C-X> <esc>5xa " - remove 5 chard in insert mode and go back to insert mode
+
 "========================================================================================"
 "========================================================================================"
 "========================Idea Custom Actions Mapping ===================================="
 "========================================================================================"
 "========================================================================================"
+"===== All mapping based on leader (space) key
+"===== All Intellij actions grouped in logical groups with unique group key with leader key
+"==== There present next groups:
+"==== key: (r) - Run & Debug
+"==== key: (r) - Refactoring
 
+"==== key: (d) - Debugger
+"==== key: (c) - Code
 
-"======================================  Run & Debug ==============================================="
+"==== key: (n) - New
+"==== key: (n) - Navigation
+
+"==== key: (s) - Show
+"==== key: (v) - View mode
+"==== key: (g) - Git
+"==== key: (w) - Windows \ Tabs
+"==== key: (e) - Editor
+"==== key: (m) - Menu
+"==== key: (b) - Block (Code fold/expand)
+"==== key: (t) - Terminal
+"==== key: (z) - Zen
+"==== key: (p) - Project management
+
+" not used yet:
+"==== key: (?) - Bookmarks and buffer
+"==== key: (?) - Scroll
+
+"==== Also there present many mapping based on modifier keys
+"==== (especially when need repeat action and not call same all combination again and again that is quite annoying some time)
+"==== for more info see separate mapping GROUP.
+"====================================== (R) Run & Debug ==============================================="
 nmap <leader>a      <Action>(Run)
 nmap <leader>q      <Action>(Stop)
 
-nnoremap <leader>rd <Action>(ChooseDebugConfiguration)
-nnoremap <leader>rD <Action>(ChooseRunConfiguration)
-nnoremap <leader>rp <Action>(Debug)
-nnoremap <leader>rP <Action>(Run)
-nnoremap <leader>rc <Action>(DebugClass)
+nmap <leader>rD <Action>(ChooseRunConfiguration)
+nmap <leader>rp <Action>(Debug)
+nmap <leader>rP <Action>(Run)
+nmap <leader>rc <Action>(DebugClass)
 map <leader>rr <Action>(RunClass)
-nnoremap <leader>rr <Action>(Rerun)
-nnoremap <leader>rs <Action>(Stop)
-nnoremap <leader>ra <Action>(RunAnything)
+nmap <leader>rr <Action>(Rerun)
+nmap <leader>rs <Action>(Stop)
+nmap <leader>ra <Action>(RunAnything)
 map <leader>rc <Action>(ContextRun)
 map <leader>rt <Action>(RunTests)
 nmap <leader>tf <Action>(RerunFailedTests)
 
 "======================================  Debugger ==============================================="
-noremap <leader>de <action>(QuickEvaluateExpression)
-noremap <leader>dE <action>(EvaluateExpression)
-vnoremap <leader>di <Action>(Debugger.AddInlineWatch)
-vnoremap <leader>dw <Action>(Debugger.AddToWatch)
-nnoremap <leader>db <Action>(EditBrakpoint)
-nnoremap <leader>dt <Action>(ToggleLineBreakpoint)
-nnoremap <leader>dr <Action>(Debugger.RemoveAllBreakpointsInFile)
-nnoremap <leader>dR <Action>(Debugger.RemoveAllBreakpoints)
-nnoremap <leader>dm <Action>(XDebugger.MuteBreakpoints)
-nnoremap <leader>dc <Action>(ForceRunToCursor)
-nnoremap <C-j> <Action>(StepOver)
-nnoremap <C-k> <Action>(Resume)
-nnoremap <C-h> <Action>(StepOut)
-nnoremap <C-l> <Action>(ForceStepInto)
-
-
-
-
-
-
+nmap <leader>de <action>(QuickEvaluateExpression)
+nmap <leader>dE <action>(EvaluateExpression)
+nmap <leader>di <Action>(Debugger.AddInlineWatch)
+nmap <leader>dw <Action>(Debugger.AddToWatch)
+nmap <leader>db <Action>(EditBrakpoint)
+nmap <leader>dt <Action>(ToggleLineBreakpoint)
+nmap <leader>dr <Action>(Debugger.RemoveAllBreakpointsInFile)
+nmap <leader>dR <Action>(Debugger.RemoveAllBreakpoints)
+nmap <leader>dm <Action>(XDebugger.MuteBreakpoints)
+nmap <leader>dc <Action>(ForceRunToCursor)
+nmap <C-j> <Action>(StepOver)
+nmap <C-k> <Action>(Resume)
+nmap <C-h> <Action>(StepOut)
+nmap <C-l> <Action>(ForceStepInto)
 
 
 "======================================= Code ================================================="
-nmap <leader>i      <Action>(Generate)
-nmap <leader>o      <Action>(OptimizeImports)
-"nmap <leader>n      <Action>(NewClass)"
-nmap <leader>r      <Action>(ReformatCode)
+nmap <leader>cg       <Action>(Generate)
+nmap <leader>coi      <Action>(OptimizeImports)
+nmap <leader>cnc      <Action>(NewClass)"
+nmap <leader>crc      <Action>(ReformatCode)
 
 map <leader>im <Action>(ImplementMethods)
 nmap \\ic <Action>(InspectCode)
 map <leader>om <Action>(OverrideMethods)
-nnoremap <Leader>sw <Action>(SurroundWith)
+nmap <Leader>sw <Action>(SurroundWith)
 
 nmap <leader>cs     <Action>(QuickChangeScheme)
 
 nmap <leader>s      <Action>(GlobalSettings)
 
+
+
+
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+nmap <Leader>fd <Action>(FixDocComment) "https://blog.jetbrains.com/idea/2012/09/fix-doc-comment-action-is-available/"
+
+
+
 "======================================= Refactoring ================================================="
-IntroduceActionsGroup
-IntroduceConstant                                  <M-A-C>
-IntroduceField                                     <M-A-F>
-IntroduceFunctionalParameter                       <M-A-S-P>
-IntroduceFunctionalVariable
-IntroduceParameter                                 <M-A-P>
-IntroduceParameterObject
-IntroduceVariable 
+nmap <leader>rag  <Action>(IntroduceActionsGroup)
+nmap <leader>ric <Action>(IntroduceConstant)
+nmap <leader>rif <Action>(IntroduceField)
+nmap <leader>rifp <Action>(IntroduceFunctionalParameter)
+nmap <leader>rifv <Action>(IntroduceFunctionalVariable)
+nmap <leader>rip <Action>(IntroduceParameter)
+nmap <leader>ripo <Action>(IntroduceParameterObject)
+nmap <leader>riv <Action>(IntroduceVariable)
 map <leader>re <Action>(Refactorings.QuickListPopupAction)
 map <leader>uw <Action>(Unwrap)
 map <leader>sw <Action>(SurroundWith)
 map <leader>sd <Action>(SafeDelete)
 map <leader>oi <Action>(OptimizeImports)
 
-nnoremap <Leader>cr <Action>(CopyReference)
-nnoremap <Leader>em <Action>(ExtractMethod)
+nmap <Leader>cr <Action>(CopyReference)
+nmap <Leader>em <Action>(ExtractMethod)
 
 " Join Lines"
-map <leader>j <Action>(EditorJoinLines)
-EditorSortLines
-EditorSplitLine  
+nmap <leader>j <Action>(EditorJoinLines)
+nmap <leader>es <Action>(EditorSortLines)
+nmap <leader>esl <Action>(EditorSplitLine)
 
 map gr <Action>(RefactoringMenu)
 map gH <Action>(QuickActions)
 map ga <Action>(ShowIntentionActions)
-nnoremap == :action ReformatCode \| action OptimizeImports<CR>
+nmap == :action ReformatCode \| action OptimizeImports<CR>
 
-"======================================= Rename ================================================="
-nnoremap <Leader>me <Action>(RenameElement)
-nnoremap <Leader>mf <Action>(RenameFile)
-nnoremap <Leader>fc <Action>(ReformatCode)
+nmap <Leader>me <Action>(RenameElement)
+nmap <Leader>mf <Action>(RenameFile)
+nmap <Leader>fc <Action>(ReformatCode)
 
 "======================================= New ... ================================================="
 map <leader>nn <Action>(NewElement)
@@ -212,28 +263,21 @@ map <leader>np <Action>(NewProject)
 map <leader>nm <Action>(NewModule)
 
 
-
-"======================================= Comment ================================================="
-map <leader>c <Action>(CommentByLineComment)
-map <leader>C <Action>(CommentByBlockComment)
-nnoremap <Leader>fd <Action>(FixDocComment) "https://blog.jetbrains.com/idea/2012/09/fix-doc-comment-action-is-available/"
-
-
-
 "======================================= Show ================================================="
 
-nmap \\o <Action>(SelectAllOccurrences)
+nmap sao <Action>(SelectAllOccurrences)
 
-nmap <leader>hc <Action>(CallHierarchy)
-nmap <leader>hm <Action>(MethodHierarchy)
-nmap <leader>ht <Action>(TypeHierarchy)
-nmap <Leader>n <Action>(LocalHistory.ShowHistory)
-xmap <Leader>n <Action>(LocalHistory.ShowSelectionHistory)
-map <leader>sf <Action>(ShowFilePath)
-map <leader>si <Action>(SelectIn)
-map \\sw <Action>($SearchWeb)
-map <leader>fu <Action>(FindUsages)
-map gf <Action>(ShowUsages)
+
+nmap <leader>sch <Action>(CallHierarchy)
+nmap <leader>smh <Action>(MethodHierarchy)
+nmap <leader>sth <Action>(TypeHierarchy)
+nmap <Leader>sn <Action>(LocalHistory.ShowHistory)
+xmap <Leader>ssn <Action>(LocalHistory.ShowSelectionHistory)
+map <leader>sfp <Action>(ShowFilePath)
+map <leader>ssi <Action>(SelectIn)
+map <leader>ssw <Action>($SearchWeb)
+map <leader>sfu <Action>(FindUsages)
+map <leader>ssu <Action>(ShowUsages)
 
 map <leader>hl <Action>(HighlightUsagesInFile)
 map <leader>qp <Action>(QuickPreview)
@@ -256,12 +300,12 @@ noremap <leader>sf <Action>(Find)
 noremap <leader>sR <Action>(ReplaceInPath)
 noremap <leader>sc :nohlsearch<CR>
 
-nnoremap <leader>fb <Action>(Switcher)
-nnoremap <leader>ff <Action>(GotoFile)
-nnoremap <leader>fc <Action>(GotoClass)
-nnoremap <leader>fs <Action>(GotoSymbol)
-nnoremap <leader>fa <Action>(GotoAction)
-nnoremap <leader>fd <Action>(GotoDatabaseObject)
+nmap <leader>fb <Action>(Switcher)
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fc <Action>(GotoClass)
+nmap <leader>fs <Action>(GotoSymbol)
+nmap <leader>fa <Action>(GotoAction)
+nmap <leader>fd <Action>(GotoDatabaseObject)
 
 nmap <leader>gp <Action>(GotToSuperMethod)
 map gT <Action>(TextSearchAction)
@@ -269,8 +313,8 @@ map gd <Action>(GotoDeclaration)
 map gI <Action>(QuickImplementations)
 
 map gD <Action>(GotoTypeDeclaration)
-nnoremap gi <Action>(GotoImplementation)
-nnoremap gs <Action>(GotoSuperMethod)
+nmap gi <Action>(GotoImplementation)
+nmap gs <Action>(GotoSuperMethod)
 map gt <Action>(GotoTest)
 nmap <Leader>j <Action>(ShowNavBar)
 noremap  <Leader>k <Action>(KJumpAction)
@@ -296,9 +340,7 @@ nmap <leader>gu <Action>(MethodUp)
 nmap <leader>gw <Action>(GotoPreviousError)
 nmap <leader>gx <Action>(GotoNextError)
 
-"======================================= Project Tree ================================================="
-nmap <leader>e      <Action>(ActivateProjectToolWindow)
-nmap <leader>e      <Action>(SelectInProjectView)
+
 
 
 
@@ -306,7 +348,7 @@ nmap <leader>e      <Action>(SelectInProjectView)
 nmap <leader>m      <Action>(Git.Menu)
 nmap <leader>ca <Action>(Annotate)
 
-"======================================= Tabs ================================================="
+"======================================= Windows \ Tabs ================================================="
 " (Move between panes top/bottom/left/right)"
 map <C-k> <C-w>k
 map <C-j> <C-w>j
@@ -332,8 +374,8 @@ map <leader>sk <Action>(MoveTabUp)
 map <leader>sl <Action>(MoveTabRight)
 map <leader>p <Action>(PinActiveEditorTab)
 
-nnoremap tm <Action>(MoveEditorToOppositeTabGroup)
-nnoremap to <Action>(OpenEditorInOppositeTabGroup)
+nmap tm <Action>(MoveEditorToOppositeTabGroup)
+nmap to <Action>(OpenEditorInOppositeTabGroup)
 
 nmap <leader>wh <Action>(CloseAllToTheLeft)
 nmap <leader>wl <Action>(CloseAllToTheRight)
@@ -344,15 +386,15 @@ nmap <leader>wc <Action>(HideAllWindows)
 map <leader>sH <Action>(SplitHorizontally)
 map <leader>sV <Action>(SplitVertically)
 nmap <leader>wu <Action>(Unsplit)
-map <C-p> <Action>(JumpToLastWindow)
+"map <C-p> <Action>(JumpToLastWindow)
 map <M-i> <Action>(PrevSplitter)
 map <M-o> <Action>(NextSplitter)
 
-nnoremap <leader>wc <Action>(ActivateCommitToolWindow)
-nnoremap <leader>wd <Action>(ActivateDebugToolWindow)
-nnoremap <leader>wr <Action>(ActivateRunToolWindow)
-nnoremap <leader>wg <Action>(ActivateVersionControlToolWindow)
-nnoremap <leader>wm <Action>(ActivateMavenToolWindow)
+nmap <leader>wc <Action>(ActivateCommitToolWindow)
+nmap <leader>wd <Action>(ActivateDebugToolWindow)
+nmap <leader>wr <Action>(ActivateRunToolWindow)
+nmap <leader>wg <Action>(ActivateVersionControlToolWindow)
+nmap <leader>wm <Action>(ActivateMavenToolWindow)
 
 nmap <leader>wk <Action>(StretchSplitToTop)
 nmap <leader>wj <Action>(StretchSplitToBottom)
@@ -360,7 +402,7 @@ nmap <leader>wh <Action>(StretchSplitToLeft)
 nmap <leader>wl <Action>(StretchSplitToRight)
 map <leader>wm <Action>(MaximizeEditorInSplit)
 map <leader>wu <Action>(UnsplitAll)
-nnoremap zn <Action>(ToggleDistractionFreeMode)
+nmap zn <Action>(ToggleDistractionFreeMode)
 "======================================= Editor ================================================="
 nmap <leader>cc     <Action>(CloseEditor)
 nmap <leader>cp     <Action>(CloseProject)
@@ -383,13 +425,7 @@ map <leader>ms <Action>(ScopeViewPopupMenu)
 map <leader>mt <Action>(EditorTabPopupMenu)
 map <leader>mw <Action>(ToolWindowsGroup)
 
-"======================================= Scroll ================================================="
-nmap <leader>eh <Action>(EditorScrollLeft)
-nmap <leader>ej <Action>(EditorScrollDown)
-nmap <leader>ek <Action>(EditorScrollUp)
-nmap <leader>el <Action>(EditorScrollRight)
-
-"======================================= (Code fold/expand) ================================================="
+"======================================= Block (Code fold/expand) ================================================="
 map zm <Action>(CollapseRegion)
 map za <Action>(ExpandRegion)
 map zM <Action>(CollapseAllRegions)
@@ -408,12 +444,16 @@ map <leader>pr <Action>(ManageRecentProjects)
 map <leader>pl <Action>(RecentProjectListGroup)
 map <leader>px <Action>(CloseProject)
 
-"======================================= bookmarks and buffer ================================================="
-nnoremap <leader>bb <Action>(Bookmarks)
-nnoremap <leader>bs <Action>(ShowBookmarks)
-nnoremap <leader>bt <Action>(ToggleBookmark)
-nnoremap <leader>bf <Action>(AddToFavorites)
+"======================================= Bookmarks and buffer ================================================="
+"nmap <leader>bb <Action>(Bookmarks)
+"nmap <leader>bs <Action>(ShowBookmarks)
+"nmap <leader>bt <Action>(ToggleBookmark)
+"nmap <leader>bf <Action>(AddToFavorites)
 
-"======================================= Vim RC ================================================="
-nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
-nnoremap <leader>ve :e ~/.ideavimrc<CR>
+"======================================= Scroll ================================================="
+"nmap <leader>eh <Action>(EditorScrollLeft)
+"nmap <leader>ej <Action>(EditorScrollDown)
+"nmap <leader>ek <Action>(EditorScrollUp)
+"nmap <leader>el <Action>(EditorScrollRight)
+
+
