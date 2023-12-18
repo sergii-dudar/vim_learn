@@ -29,6 +29,8 @@ set timeoutlen=2000
 vnoremap . :norm! .<CR>
 
 " ================================ basic settings ================================="
+" https://github.com/JetBrains/ideavim/blob/master/doc/set-commands.md
+
 set number relativenumber
 set idearefactormode=keep
 
@@ -381,6 +383,22 @@ noremap <Tab>j <C-w>j
 noremap <Tab>h <C-w>h
 noremap <Tab>l <C-w>l
 
+" (change size of active panes top/bottom/left/right)"
+map <A-h> <Action>(StretchSplitToLeft)
+map <A-l> <Action>(StretchSplitToRight)
+map <A-k> <Action>(StretchSplitToTop)
+map <A-j> <Action>(StretchSplitToBottom)
+
+" (change size of active tool window top/bottom/left/right) - intellij keymapping"
+"ResizeToolWindowLeft         <A-h>
+"ResizeToolWindowRight        <A-l>
+"ResizeToolWindowUp           <A-k>
+"ResizeToolWindowDown         <A-j>
+
+
+nmap <Tab>ma <Action>(MaximizeEditorInSplit)
+
+
 nmap <Tab>mm <Action>(MoveEditorToOppositeTabGroup)
 nmap <Tab>oo <Action>(OpenEditorInOppositeTabGroup)
 
@@ -403,14 +421,7 @@ nmap <Tab>sj <Action>(SplitVertically)
 nmap <Tab>uu <Action>(Unsplit)
 nmap <Tab>ua <Action>(UnsplitAll)
 
-nmap <Tab>ma <Action>(MaximizeEditorInSplit)
-
 nmap <Action>tl <Action>(JumpToLastWindow)
-
-nmap KK <Action>(StretchSplitToTop)
-nmap JJ <Action>(StretchSplitToBottom)
-nmap HH <Action>(StretchSplitToLeft)
-nmap LL <Action>(StretchSplitToRight)
 
 "======================================= (w) Windows ================================================="
 
