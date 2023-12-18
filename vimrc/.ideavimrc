@@ -13,16 +13,17 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" use JJ and jj to move to normal mode
+" use jj to move to normal mode
 "inoremap jj <esc>
-"inoremap JJ <esc>
 
 "cnoremap jj <C-c>
-"cnoremap JJ <C-c>
 
 " The timeoutlen controls how long to wait before recognizing it as a sequence.
 " set timeoutlen=1000 ""https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen"
-"set timeoutlen=600 "ms
+
+" all key mapping have unique mapping, if there some mapping when I need wait `timeoutlen` to exec, then
+" this mapping should be changed
+set timeoutlen=2000
 
 " repeat comand for visually selected block"
 vnoremap . :norm! .<CR>
@@ -127,19 +128,19 @@ nnoremap R @q " R to execute q macro
 "===== All mapping based on leader (space) key
 "===== All Intellij actions grouped in logical groups with unique group key with leader key
 "==== There present next groups:
-"==== key: (e) - Run & Debug (execute)
+"==== key: (e) - Run \ Debug \ Extract (execute)
 
 "==== key: (i) - Introduce
-"==== key: (r) - Refactoring
-"==== key: (g) - Code (generate)
-"==== key: (c) - Comment
+"==== key: (r) - Refactoring \ Rename \ Recent \ Replace
+"==== key: (l) - Line
+"==== key: (c) - Comment \ Copy \ Code
 "==== key: (l) - Line
 
 "==== key: (n) - New
-"==== key: (f) - Navigation (find)
+"==== key: (f)(g) - Navigation (find, goto)
 "==== key: (h) - Hierarchy \ History
 "==== key: (q) - Quick
-"==== key: (s) - Show
+"==== key: (s) - Show \ History
 "==== key: (v) - View mode
 "==== key: (w) - Windows
 "==== key: (t) - Tabs
@@ -159,13 +160,13 @@ nnoremap R @q " R to execute q macro
 "==== for more info see separate mapping GROUP.
 "====================================== (e) Run \ Debug \ Extract ==============================================="
 
-nmap <leader>e <Action>(Run)
-nmap <leader>ee <Action>(Debug)
+nmap <leader>ee <Action>(Run)
+nmap <leader>ed <Action>(Debug)
 nmap <leader>es <Action>(Stop)
 nmap <leader>er <Action>(Rerun)
 
-nmap <leader>ec <Action>(RunClass)
-nmap <leader>ecc <Action>(DebugClass)
+nmap <leader>ecr <Action>(RunClass)
+nmap <leader>ecd <Action>(DebugClass)
 
 nmap <leader>et <Action>(RunTests)
 nmap <leader>ef <Action>(RerunFailedTests)
@@ -177,27 +178,18 @@ nmap <leader>ef <Action>(RerunFailedTests)
 "====== extract
 nmap <leader>em <Action>(ExtractMethod)
 
-"======================================= (g) Code ================================================="
-
-nmap <leader>g        <Action>(Generate)
-
-map <leader>gi <Action>(ImplementMethods)
-map <leader>go <Action>(OverrideMethods)
-nmap <leader>gs <Action>(SurroundWith)
-"nmap <leader>gic <Action>(InspectCode)
-
 "======================================= (i) Introduce ================================================="
 
-nmap <leader>ic <Action>(IntroduceConstant)
-nmap <leader>if <Action>(IntroduceField)
-nmap <leader>ip <Action>(IntroduceParameter)
-nmap <leader>iv <Action>(IntroduceVariable)
+map <leader>ic <Action>(IntroduceConstant)
+map <leader>if <Action>(IntroduceField)
+map <leader>ip <Action>(IntroduceParameter)
+map <leader>iv <Action>(IntroduceVariable)
 
-nmap <leader>iff <Action>(IntroduceFunctionalParameter)
-nmap <leader>ivv <Action>(IntroduceFunctionalVariable)
-nmap <leader>ipp <Action>(IntroduceParameterObject)
+map <leader>iif <Action>(IntroduceFunctionalParameter)
+map <leader>iiv <Action>(IntroduceFunctionalVariable)
+map <leader>iop <Action>(IntroduceParameterObject)
 
-nmap <leader>i <Action>(IntroduceActionsGroup)
+map <leader>im <Action>(IntroduceActionsGroup)
 
 "======================================= (r) Refactoring \ Rename \ Recent \ Replace ================================================="
 
@@ -215,8 +207,6 @@ nmap <leader>rff <Action>(RecentChangedFiles)
 nmap <leader>rl <Action>(RecentLocations)
 
 
-
-
 "======================================= (l) Line ================================================="
 
 " Join Lines"
@@ -227,14 +217,20 @@ nmap <leader>lt <Action>(EditorSortLines)
 "map <M-k> <Action>(MoveLineUp)
 "map <M-j> <Action>(MoveLineDown)
 
-"======================================= (c) Comment \ Copy ================================================="
+"======================================= (c) Comment \ Copy \ Code ================================================="
 
-map <leader>c <Action>(CommentByLineComment)
-map <leader>cb <Action>(CommentByBlockComment)
 nmap <leader>cf <Action>(FixDocComment)
 
-map <leader>cc <Action>(CollapseDocComments)
-map <leader>ce <Action>(ExpandDocComments)
+map <leader>cl <Action>(CommentByLineComment)
+map <leader>cb <Action>(CommentByBlockComment)
+
+"=== Code
+nmap <leader>cg       <Action>(Generate)
+
+nmap <leader>ci <Action>(ImplementMethods)
+nmap <leader>co <Action>(OverrideMethods)
+nmap <leader>cs <Action>(SurroundWith)
+"nmap <leader>gic <Action>(InspectCode)
 
 "=== Copy
 nmap <leader>cr <Action>(CopyReference)
@@ -248,7 +244,7 @@ nmap <leader>np <Action>(NewProject)
 nmap <leader>nm <Action>(NewModule)
 nmap <leader>nc <Action>(NewClass)
 
-"======================================= (s) Show ================================================="
+"======================================= (s) Show \ History ================================================="
 
 nmap <leader>so <Action>(SelectAllOccurrences)
 
@@ -262,12 +258,16 @@ map <leader>sh <Action>(HighlightUsagesInFile)
 "=== git blame
 nmap <leader>sa <Action>(Annotate)
 
+"=== History
+nmap <leader>sgh <Action>(LocalHistory.ShowHistory)
+nmap <leader>sgs <Action>(LocalHistory.ShowSelectionHistory)
+
 "nmap <leader>sf <Action>(ShowFilePath)
 "map <leader>ssi <Action>(SelectIn)
 "nmap <leader>sw <Action>($SearchWeb)
 "======================================= (q) Quick ================================================="
 
-map <leader>q <Action>(QuickJavaDoc)
+map <leader>qq <Action>(QuickJavaDoc)
 map <leader>qi <Action>(QuickImplementations)
 
 map <leader>qs <Action>(QuickChangeScheme)
@@ -277,15 +277,11 @@ map <leader>qe <Action>(QuickEvaluateExpression)
 "map <leader>qa <Action>(QuickActions)
 "map <leader>qt <Action>(QuickTypeDefinition)
 
-"======================================= (h) Hierarchy \ History \ Hide ================================================="
+"======================================= (h) Hierarchy \ Hide ================================================="
 
 nmap <leader>hc <Action>(CallHierarchy)
 nmap <leader>hm <Action>(MethodHierarchy)
 nmap <leader>ht <Action>(TypeHierarchy)
-
-"=== History
-nmap <leader>hs <Action>(LocalHistory.ShowHistory)
-nmap <leader>hss <Action>(LocalHistory.ShowSelectionHistory)
 
 "=== Hide
 nmap <leader>ha <Action>(HideAllWindows)
@@ -298,27 +294,30 @@ nmap <leader>vv <Action>(ToggleDistractionFreeMode)
 nmap <leader>vp <Action>(TogglePresentationMode)
 
 
-"======================================= (f) Navigation ================================================="
+"======================================= (f)(g) Navigation ================================================="
 
+"=== (f)
 nmap <leader>fe <Action>(SearchEverywhere)
 nmap <leader>fp <Action>(FindInPath)
-nmap <leader>f <Action>(Find)
+nmap <leader>ff <Action>(Find)
+nmap <leader>ft <Action>(TextSearchAction)
 
 "=== Replace
 nmap <leader>fr <Action>(Replace)
-nmap <leader>frr <Action>(ReplaceInPath)
+nmap <leader>fgr <Action>(ReplaceInPath)
 
-nmap <leader>ff <Action>(GotoFile)
-nmap <leader>fc <Action>(GotoClass)
-nmap <leader>fs <Action>(GotoSymbol)
-nmap <leader>fa <Action>(GotoAction)
-nmap <leader>fd <Action>(GotoDeclaration)
-nmap <leader>ftd <Action>(GotoTypeDeclaration)
-nmap <leader>fi <Action>(GotoImplementation)
-nmap <leader>ft <Action>(GotoTest)
-nmap <leader>fm <Action>(GoToSuperMethod)
-nmap <leader>ftt <Action>(TextSearchAction)
 
+nmap <leader>gf <Action>(GotoFile)
+nmap <leader>gc <Action>(GotoClass)
+nmap <leader>gs <Action>(GotoSymbol)
+nmap <leader>ga <Action>(GotoAction)
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>ggt <Action>(GotoTypeDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gt <Action>(GotoTest)
+nmap <leader>gm <Action>(GoToSuperMethod)
+
+"=== Modifiers
 nmap <C-u> <Action>(GotoNextElementUnderCaretUsage)
 nmap <D-u> <Action>(GotoPrevElementUnderCaretUsage)
 
@@ -335,8 +334,8 @@ nmap <C-n> <Action>(Forward)
 nmap <D-n> <Action>(Back)
 
 " move between active split window tabs
-nmap <C-s> <Action>(NextSplitter)
-nmap <D-s> <Action>(PrevSplitter)
+nmap <C-t> <Action>(NextSplitter)
+nmap <D-t> <Action>(PrevSplitter)
 
 
 "nmap <leader>gc <Action>(VcsShowPrevChangeMarker)
@@ -354,7 +353,7 @@ nmap <D-s> <Action>(PrevSplitter)
 "======================================= (t) Tabs ================================================="
 
 
-nmap <Tab>     <Action>(NextTab)
+"nmap <Tab>     <Action>(NextTab)
 nmap <S-Tab>   <Action>(PreviousTab)
 nmap <leader>1 <Action>(GoToTab1)
 nmap <leader>2 <Action>(GoToTab2)
@@ -367,10 +366,10 @@ nmap <leader>8 <Action>(GoToTab8)
 nmap <leader>9 <Action>(GoToTab9)
 nmap <leader>0 <Action>(GoToLastTab)
 
-map <Tab>hh <Action>(MoveTabLeft)
-map <Tab>jj <Action>(MoveTabDown)
-map <Tab>kk <Action>(MoveTabUp)
-map <Tab>ll <Action>(MoveTabRight)
+map <leader>th <Action>(MoveTabLeft)
+map <leader>tj <Action>(MoveTabDown)
+map <leader>tk <Action>(MoveTabUp)
+map <leader>tl <Action>(MoveTabRight)
 
 " (Move between panes top/bottom/left/right)"
 "noremap <C-k> <C-w>k
@@ -382,8 +381,8 @@ noremap <Tab>j <C-w>j
 noremap <Tab>h <C-w>h
 noremap <Tab>l <C-w>l
 
-nmap <Tab>m <Action>(MoveEditorToOppositeTabGroup)
-nmap <Tab>o <Action>(OpenEditorInOppositeTabGroup)
+nmap <Tab>mm <Action>(MoveEditorToOppositeTabGroup)
+nmap <Tab>oo <Action>(OpenEditorInOppositeTabGroup)
 
 nmap <Tab>ch <Action>(CloseAllToTheLeft)
 nmap <Tab>cl <Action>(CloseAllToTheRight)
@@ -391,40 +390,35 @@ nmap <Tab>r <Action>(ReopenClosedTab)
 
 nmap <Tab>p <Action>(PinActiveEditorTab)
 
-nmap <Tab>c     <Action>(CloseEditor)
+nmap <Tab>cc <Action>(CloseEditor)
 "nmap <Tab>xx <Action>(CloseContent)
 nmap <Tab>ca <Action>(CloseAllEditors)
 nmap <Tab>ci <Action>(CloseAllEditorsButActive)
 nmap <Tab>cp <Action>(CloseAllUnpinnedEditors)
 
+" (Pane vertically split/horizontally split/close)"
+nmap <Tab>sh <Action>(SplitHorizontally)
+nmap <Tab>sj <Action>(SplitVertically)
 
+nmap <Tab>uu <Action>(Unsplit)
+nmap <Tab>ua <Action>(UnsplitAll)
 
+nmap <Tab>ma <Action>(MaximizeEditorInSplit)
 
+nmap <Action>tl <Action>(JumpToLastWindow)
+
+nmap KK <Action>(StretchSplitToTop)
+nmap JJ <Action>(StretchSplitToBottom)
+nmap HH <Action>(StretchSplitToLeft)
+nmap LL <Action>(StretchSplitToRight)
 
 "======================================= (w) Windows ================================================="
-"TODO:
-" (Pane vertically split/horizontally split/close)"
-nmap <leader>wsh <Action>(SplitHorizontally)
-nmap <leader>wsv <Action>(SplitVertically)
 
-nmap <leader>wu <Action>(Unsplit)
-nmap <leader>wu <Action>(UnsplitAll)
-
-nmap <leader>wm <Action>(MaximizeEditorInSplit)
-
-nmap <leader>wl <Action>(JumpToLastWindow)
-
-nmap <leader>wk <Action>(StretchSplitToTop)
-nmap <leader>wj <Action>(StretchSplitToBottom)
-nmap <leader>wh <Action>(StretchSplitToLeft)
-nmap <leader>wl <Action>(StretchSplitToRight)
-
-nmap <leader>tc <Action>(ActivateCommitToolWindow)
-nmap <leader>td <Action>(ActivateDebugToolWindow)
-nmap <leader>tr <Action>(ActivateRunToolWindow)
-nmap <leader>tg <Action>(ActivateVersionControlToolWindow)
+nmap <leader>wc <Action>(ActivateCommitToolWindow)
+nmap <leader>wd <Action>(ActivateDebugToolWindow)
+nmap <leader>wr <Action>(ActivateRunToolWindow)
+nmap <leader>wg <Action>(ActivateVersionControlToolWindow)
 "nmap <leader>tm <Action>(ActivateMavenToolWindow)
-
 
 "======================================= (m) Menu ================================================="
 
@@ -433,7 +427,7 @@ nmap <leader>ma <Action>(AnalyzeMenu)
 nmap <leader>mb <Action>(BuildMenu)
 nmap <leader>mc <Action>(CodeMenu)
 nmap <leader>mf <Action>(FindMenuGroup)
-nmap <leader>mg <Action>(GoToMenu)
+nmap <leader>mgm <Action>(GoToMenu)
 nmap <leader>ms <Action>(ScopeViewPopupMenu)
 nmap <leader>mt <Action>(EditorTabPopupMenu)
 nmap <leader>mw <Action>(ToolWindowsGroup)
@@ -448,20 +442,23 @@ nmap <leader>mi <Action>(ShowIntentionActions)
 map <leader>bc <Action>(CollapseRegion)
 map <leader>be <Action>(ExpandRegion)
 
-map <leader>bcc <Action>(CollapseAllRegions)
-map <leader>bee <Action>(ExpandAllRegions)
+map <leader>bbc <Action>(CollapseAllRegions)
+map <leader>bbe <Action>(ExpandAllRegions)
 
 map <leader>ba <Action>(ExpandCollapseToggleAction)
+
+map <leader>cc <Action>(CollapseDocComments)
+map <leader>ce <Action>(ExpandDocComments)
 
 "======================================= (o) Terminal ================================================="
 
 map <leader>ot <Action>(ActivateTerminalToolWindow)
-map <leader>oc <Action>(Terminal.OpenInTerminal) " OpenTerminal with current dir"
+map <leader>oc <Action>(Terminal.OpenInTerminal)
 
 "======== Optimize
-map <leader>o :action ReformatCode \| action OptimizeImports<CR>
+map <leader>oo :action ReformatCode \| action OptimizeImports<CR>
 map <leader>oi <Action>(OptimizeImports)
-map <leader>oc <Action>(ReformatCode)
+map <leader>or <Action>(ReformatCode)
 
 
 "======================================= (z) Zen ================================================="
