@@ -6,6 +6,12 @@
 " plugin instuctions: https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins"
 
 " Jetbrains Actions Mappings, all list of possible idea actions exec command :actionlist"
+"=======================██╗   ██╗██╗███╗   ███╗====================================="
+"=======================██║   ██║██║████╗ ████║====================================="
+"=======================██║   ██║██║██╔████╔██║====================================="
+"=======================╚██╗ ██╔╝██║██║╚██╔╝██║====================================="
+"======================= ╚████╔╝ ██║██║ ╚═╝ ██║====================================="
+"=======================  ╚═══╝  ╚═╝╚═╝     ╚═╝====================================="
 " ============================== basic pre configuration ==========================="
 
 noremap <Up> <Nop>
@@ -42,31 +48,18 @@ set ignorecase
 set smartcase
 set ideaput
 
-" ================================ space as leader ================================="
+" ================================== space as leader ===================================="
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 
-" ================================ plugins https://jb.gg/ideavim-plugins ================================="
-set surround            "https://github.com/tpope/vim-surround"
-set multiple-cursors    "https://github.com/terryma/vim-multiple-cursors"
-set easymotion          "https://github.com/easymotion/vim-easymotion"
-set commentary          "https://github.com/tpope/vim-commentary"
-set highlightedyank     "https://github.com/machakann/vim-highlightedyank/blob/master/doc/highlightedyank.txt"
-set NERDTree            "https://github.com/JetBrains/ideavim/wiki/NERDTree-support"
-set exchange            "https://github.com/tommcdo/vim-exchange/blob/master/doc/exchange.txt"
-set textobj-indent      "https://www.seanh.cc/2020/08/08/vim-indent-object/, https://github.com/michaeljsmith/vim-indent-object/blob/master/doc/indent-object.txt"
+"========================================== macro ======================================="
+nnoremap R @q " R to execute q macro
 
-"========================================================================================"
-"========================================================================================"
-"===============================VIM KEY Mapping ========================================="
-"========================================================================================"
-"========================================================================================"
-
-"======== (Move to line start/end)========
+"================================ (Move to line start/end)==============================="
 noremap H ^
 noremap L $
 
-"======== (Move between blocks)========"
+"=================================== (Move between blocks)==============================="
 "noremap J }
 "noremap K {
 
@@ -77,49 +70,294 @@ noremap K 6k
 "vmap < <gv
 "vmap > >gv
 
+"===================================== just some testing space =========================="
+
 "(Copy to system clipboard)"
 "vmap <C-S-c> +y "
-
-"================================ NERDTree config ================================="
-"===https://github.com/JetBrains/ideavim/wiki/NERDTree-support#supported-commands=="
-map <C-p> :NERDTree<CR>
-let g:NERDTreeMapActivateNode='l'
-let g:NERDTreeMapJumpParent='h'
-
-
-"================================ highlightedyank config ================================="
-"let g:highlightedyank_highlight_color = "rgba(172, 205, 218, 1)""
-let g:highlightedyank_highlight_duration = "300"
-
-"================================ vim-multiple-cursors config ================================="
-nmap <leader>n <Plug>NextWholeOccurrence
-xmap <leader>n <Plug>NextWholeOccurrence
-nmap g<C-n> <Plug>NextOccurrence
-xmap g<C-n> <Plug>NextOccurrence
-"xmap <C-x> <Plug>SkipOccurrence
-"xmap <C-p> <Plug>RemoveOccurrence
-
-"================================ easymotion ================================="
-map <leader>k <Plug>(easymotion-s)
-map <leader>j <Plug>(easymotion-f)
-
-"================================ macro ================================="
-nnoremap R @q " R to execute q macro
-
-"================================ tmpl config ================================="
-" TODO:"
-
-"================================ tmpl config ================================="
-" TODO:"
-
 
 "noremap x 5x
 "inoremap <C-X> 5x
 "inoremap <C-X> <esc>5xa " - remove 5 chard in insert mode and go back to insert mode
 
+
+
+" ============== plugins https://jb.gg/ideavim-plugins ================================="
+set surround            "https://github.com/tpope/vim-surround
+set multiple-cursors
+set easymotion
+set commentary
+set highlightedyank
+set NERDTree
+set exchange
+set textobj-indent
+
 "========================================================================================"
 "========================================================================================"
-"========================Idea Custom Actions Mapping ===================================="
+"========================================================================================"
+"============================██╗   ██╗██╗███╗   ███╗====================================="
+"============================██║   ██║██║████╗ ████║====================================="
+"============================██║   ██║██║██╔████╔██║====================================="
+"============================╚██╗ ██╔╝██║██║╚██╔╝██║====================================="
+"============================ ╚████╔╝ ██║██║ ╚═╝ ██║====================================="
+"============================  ╚═══╝  ╚═╝╚═╝     ╚═╝====================================="
+"==========================VIM PLUGINS Mapping & Config=================================="
+"========================================================================================"
+"========================================================================================"
+"========================================================================================"
+"........................................................................................"
+"========================================================================================"
+"======================================= surround ======================================="
+
+" https://github.com/tpope/vim-surround
+" https://github.com/tpope/vim-surround/blob/master/doc/surround.txt
+
+" This plugin is a tool for dealing with pairs of "surroundings."  Examples
+" of `surroundings` include parentheses, quotes, and HTML tags.  They are
+" closely related to what Vim refers to as |text-objects|.  Provided
+" are mappings to allow for `removing`, `changing`, and `adding` surroundings.
+
+"surroundings": parentheses, brackets, quotes, XML tags, and more
+
+" ----------------------------------------------------------------------------------------------------------
+" | DESCRIPTION:    Delete command: *ds* - The next character given determines the target to delete        |
+" |--------------------------------------------------------------------------------------------------------|
+" | Old text           | Command  | New text                                                               |
+" |--------------------------------------------------------------------------------------------------------|
+" |  "Hello *world!"   | ds"      | Hello world!                                                           |
+" |  (123+4*56)/2      | ds)      | 123+456/2                                                              |
+" |  <div>Yo!*</div>   | dst      | Yo!                                                                    |
+" ----------------------------------------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------------------------------------
+" | DESCRIPTION: Change command: *cs* - It takes two arguments, a target like with |ds|, and a replacement |
+" |--------------------------------------------------------------------------------------------------------|
+" | Old text           | Command  | New text                                                               |
+" |--------------------------------------------------------------------------------------------------------|
+" | "Hello *world!"    | cs"'     | 'Hello world!'                                                         |
+" | "Hello *world!"    | cs"<q>   | <q>Hello world!</q>                                                    |
+" | (123+4*56)/2       | cs)]     | [123+456]/2                                                            |
+" | (123+4*56)/2       | cs)[     | [ 123+456 ]/2                                                          |
+" | <div>Yo!*</div>    | cst<p>   | <p>Yo!</p>                                                             |
+" ----------------------------------------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------------------------------------
+" | DESCRIPTION: Add command: *ys* - takes a valid Vim motion or text object as the first object, and wraps|
+" |              it using the second argument as with |cs|.  (It's a stretch, but a good                   |
+" |              mnemonic for "ys" is "you surround".)                                                     |
+" |--------------------------------------------------------------------------------------------------------|
+" | Old text           | Command   | New text                                                              |
+" |--------------------------------------------------------------------------------------------------------|
+" | Hello w*orld!      | ysiw)     | Hello (world)!                                                        |
+" ----------------------------------------------------------------------------------------------------------
+
+"========================================================================================"
+"================================== multiple-cursors ===================================="
+
+nmap <leader>n <Plug>NextWholeOccurrence
+xmap <leader>n <Plug>NextWholeOccurrence
+"nmap <C-n> <Plug>NextOccurrence
+"xmap <C-n> <Plug>NextOccurrence
+"xmap <C-x> <Plug>SkipOccurrence
+"xmap <C-p> <Plug>RemoveOccurrence
+
+" ----------------------------------------------------------------------------------------------------------
+" |   DESCRIPTION: (https://github.com/terryma/vim-multiple-cursors/blob/master/doc/multiple_cursors.txt)  |
+" |--------------------------------------------------------------------------------------------------------|
+" |   normal mode                                                                                          |
+" |--------------------------------------------------------------------------------------------------------|
+" |   - start:      `<C-n>` start multicursor and add a virtual cursor + visual selection on the match     |
+" |       + next:   `<C-n>` add a new virtual cursor + visual selection on the next match                  |
+" |       + skip:   `<C-x>` skip the next match                                                            |
+" |       + prev:   `<C-p>` remove current virtual cursor + visual selection and go back on previous match |
+" |   - select all: `<A-n>` start muticursor and directly select all matches                               |
+" |                                                                                                        |
+" |  You can now change the virtual cursors + visual selection with |visual-mode| commands.                |
+" |  For instance: `c`, `s`, `I`, `A` work without any issues.                                             |
+" |  You could also go to |normal-mode| by pressing `v` and use normal commands there.                     |
+" |                                                                                                        |
+" |  At any time, you can press `<Esc>` to exit back to regular Vim.                                       |
+" |                                                                                                        |
+" |  NOTE: start with `g<C-n>` to match without boundaries (behaves like `g*` instead of `*`, see |gstar|) |
+" |--------------------------------------------------------------------------------------------------------|
+" |--------------------------------------------------------------------------------------------------------|
+" |  visual mode when multiple lines are selected~                                                         |
+" |--------------------------------------------------------------------------------------------------------|
+" |      - start: `<C-n>` add virtual cursors on each line                                                 |
+" |                                                                                                        |
+" |  You can now change the virtual cursors with |normal-mode| commands.                                   |
+" |  For instance: `ciw`.                                                                                  |
+" ----------------------------------------------------------------------------------------------------------
+
+"========================================================================================"
+"===================================== easymotion ======================================="
+
+map <leader><leader>s <Plug>(easymotion-s)
+map <leader><leader>f <Plug>(easymotion-f)
+
+" https://github.com/AlexPl292/IdeaVim-EasyMotion#supported-commands
+" https://github.com/easymotion/vim-easymotion/blob/master/doc/easymotion.txt
+
+" <ll> == <leader><leader>
+" ---------------------------------------------------------------------------------------------------------
+" |Default Mapping |  <Plug> command       |  Description                                                 |
+" |-------------------------------------------------------------------------------------------------------|
+" | <ll>f{char}    |  <Plug>(easymotion-f) |  Find {char} to the right. See |f|.                          |
+" | <ll>F{char}    |  <Plug>(easymotion-F) |  Find {char} to the left. See |F|.                           |
+" | <ll>t{char}    |  <Plug>(easymotion-t) |  Till before the {char} to the right. See |t|.               |
+" | <ll>T{char}    |  <Plug>(easymotion-T) |  Till after the {char} to the left. See |T|.                 |
+" | <ll>s          |  <Plug>(easymotion-s) |  Find(Search) {char} forward and backward. See |f| and |F|." |
+
+" | <ll>w          |  <Plug>(easymotion-w) |  Beginning of word forward. See |w|.                         |
+" | <ll>W          |  <Plug>(easymotion-W) |  Beginning of WORD forward. See |W|.                         |
+" | <ll>b          |  <Plug>(easymotion-b) |  Beginning of word backward. See |b|.                        |
+" | <ll>B          |  <Plug>(easymotion-B) |  Beginning of WORD backward. See |B|.                        |
+" | <ll>e          |  <Plug>(easymotion-e) |  End of word forward. See |e|.                               |
+" | <ll>E          |  <Plug>(easymotion-E) |  End of WORD forward. See |E|.                               |
+" | <ll>ge         |  <Plug>(easymotion-ge |  End of word backward. See |ge|.                             |
+" | <ll>gE         |  <Plug>(easymotion-gE |  End of WORD backward. See |gE|.                             |
+" | <ll>j          |  <Plug>(easymotion-j) |  Line downward. See |j|.                                     |
+" | <ll>k          |  <Plug>(easymotion-k) |  Line upward. See |k|.                                       |
+" | <ll>n          |  <Plug>(easymotion-n) |  Jump to latest "/" or "?" forward. See |n|.                 |
+" | <ll>N          |  <Plug>(easymotion-N) |  Jump to latest "/" or "?" backward. See |N|.                |
+" ---------------------------------------------------------------------------------------------------------
+
+"========================================================================================"
+"===================================== commentary ======================================="
+
+" https://github.com/tpope/vim-commentary"
+" https://github.com/tpope/vim-commentary/blob/master/doc/commentary.txt
+
+" ---------------------------------------------------------------------------------
+" |Default Mapping |  Description                                                 |
+" |-------------------------------------------------------------------------------|
+" | gc{motion}     |  Comment or uncomment lines that {motion} moves over.        |
+" | gc{text object}|  (for example, `gcap` to comment out a paragraph)            |
+" | gcc            |  Comment or uncomment [count] lines.                         |
+" | {Visual}gc     |  Text object for a comment (operator pending mode only.)     |
+" | gc             |  Till after the {char} to the left. See |T|.                 |
+" | gcgc or gcu    |  Uncomment the current and adjacent commented lines.         |
+" ---------------------------------------------------------------------------------
+
+"========================================================================================"
+"==================================== highlightedyank ==================================="
+
+" https://github.com/machakann/vim-highlightedyank/blob/master/doc/highlightedyank.txt"
+
+"let g:highlightedyank_highlight_color = "rgba(172, 205, 218, 1)""
+let g:highlightedyank_highlight_duration = "300"
+
+"========================================================================================"
+"================================== NERDTree config ====================================="
+
+map <C-p> :NERDTree<CR>
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
+
+nmap <leader>pw <Action>(ActivateProjectToolWindow)
+nmap <leader>pv <Action>(SelectInProjectView)
+
+"nnoremap <leader>pw :NERDTree<CR>
+"nnoremap <leader>pv :NERDTreeFind<CR>
+
+" https://github.com/JetBrains/ideavim/blob/master/doc/NERDTree-support.md?plain=1
+" ------------------------------------------------------------------------------------------------------
+" | Key     |  Description                                            |  Map Setting                   |
+" |---------|---------------------------------------------------------|--------------------------------|
+" | `o`     |  Open files, directories and bookmarks                  | `g:NERDTreeMapActivateNode`    |
+" | `go`    |  Open selected file, but leave cursor in the NERDTree   | `g:NERDTreeMapPreview`         |
+
+" | `t`     |  Open selected node/bookmark in a new tab               | `g:NERDTreeMapOpenInTab`       |
+" | `s`     |  Open selected file in a new vsplit                     | `g:NERDTreeMapOpenVSplit`      |
+
+" | `T`     |  Same as 't' but keep the focus on the current tab      | `g:NERDTreeMapOpenInTabSilent` |
+" | `i`     |  Open selected file in a split window                   | `g:NERDTreeMapOpenSplit`       |
+" | `gi`    |  Same as i, but leave the cursor on the NERDTree        | `g:NERDTreeMapPreviewSplit`    |
+" | `gs`    |  Same as s, but leave the cursor on the NERDTree        | `g:NERDTreeMapPreviewVSplit`   |
+" | `O`     |  Recursively open the selected directory                | `g:NERDTreeMapOpenRecursively` |
+" | `x`     |  Close the current nodes parent                         | `g:NERDTreeMapCloseDir`        |
+" | `X`     |  Recursively close all children of the current node     | `g:NERDTreeMapCloseChildren`   |
+" | `P`     |  Jump to the root node                                  | `g:NERDTreeMapJumpRoot`        |
+" | `p`     |  Jump to current nodes parent                           | `g:NERDTreeMapJumpParent`      |
+" | `K`     |  Jump up inside directories at the current tree depth   | `g:NERDTreeMapJumpFirstChild`  |
+" | `J`     |  Jump down inside directories at the current tree depth | `g:NERDTreeMapJumpLastChild`   |
+" | `<C-J>` |  Jump down to next sibling of the current directory     | `g:NERDTreeMapJumpNextSibling` |
+" | `<C-K>` |  Jump up to previous sibling of the current directory   | `g:NERDTreeMapJumpPrevSibling` |
+" | `r`     |  Recursively refresh the current directory              | `g:NERDTreeMapRefresh`         |
+" | `R`     |  Recursively refresh the current root                   | `g:NERDTreeMapRefreshRoot`     |
+" | `m`     |  Display the NERDTree menu                              | `g:NERDTreeMapMenu`            |
+" | `q`     |  Close the NERDTree window                              | `g:NERDTreeMapQuit`            |
+" | `A`     |  Zoom (maximize/minimize) the NERDTree window           | `g:NERDTreeMapToggleZoom`      |
+" ------------------------------------------------------------------------------------------------------
+
+"========================================================================================"
+"======================================= exchange ======================================="
+
+" https://github.com/tommcdo/vim-exchange/blob/master/doc/exchange.txt
+" https://github.com/tommcdo/vim-exchange/tree/master
+
+" -------------------------------------------------------------------------------------------------------------------
+" |Default Mapping| <Plug> command        | Description                                                             |
+" |-----------------------------------------------------------------------------------------------------------------|
+" | cx{motion}    |  <Plug>(Exchange)     | Used in pairs.                                                          |
+" |               |                       |  FIRST USE: define the first region of text to be                       |
+" |               |                       |  exchanged. Any valid {motion} can be used.                             |
+" |               |                       |  SECOND USE: define the second region of text and                       |
+" |               |                       |  perform the exchange.                                                  |
+" |               |                       |  Note: If a region was defined accidentally, it can                     |
+" |               |                       |  be cleared with |cxc|                                                  |
+" |               |                       |                                                                         |
+" | cxx           |  <Plug>(ExchangeLine) | Like |cx|, but for the current line. |linewise|                         |
+" | cxc           |  <Plug>(ExchangeClear)| Clear any defined region of text (previously defined by a |cx| command) |
+" | {Visual}X     |  <Plug>(Exchange)     | Can be used in |visual-mode|.                                           |
+" |               |                       |                                                                         |
+" -------------------------------------------------------------------------------------------------------------------
+
+"========================================================================================"
+"====================================== textobj-indent =================================="
+
+" Plugin allows to visually select text block by indent levels (very convenient)
+
+" https://github.com/michaeljsmith/vim-indent-object/blob/master/doc/indent-object.txt
+" https://www.seanh.cc/2020/08/08/vim-indent-object/
+
+" ---------------------------------------------------------------------------------------------------------------------------------------------------------
+" |Mapping|  Description                                                                                                                                  |
+" |-------------------------------------------------------------------------------------------------------------------------------------------------------|
+" | `vii` | selects all lines at the same indentation level as the current line.                                                                          |
+" |       | (For example just the body of a method and not the method signatureor any empty lines below the method. Or just the body of a `try`           |
+" |       | clause and not the `try` line itself.)                                                                                                        |
+" |       |                                                                                                                                               |
+" | `vai` | selects all lines at the same indentation level as the current line, and the first unindented line above the indented block (e.g. the method  |
+" |       | signature, if the indented block is a method, or the `try` if the indented block is a `try` clause, etc).                                     |
+" |       |                                                                                                                                               |
+" | `vaI` | selects an indentation level and both the unindented line above and the unindented line below it.                                             |
+" |       | For a method this will select the method’s signature (unindented line above) and the signature of the next                                    |
+" |       | method below (unindented line below) (as well as any empty lines between the two methods).                                                    |
+" |       | For a `try` clause it’ll select both the `try` above and the first except below (but not the body of the `except` clause).                    |
+" ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+" In visual mode you can keep repeating one of the above mappings to keep extending the selection
+"   to more and more text at higher and higher indentation levels. For example:
+
+" `vii` (goes into visual mode and selects the body of a try clause), `ii` (widens the selection to the entire method),
+"    `ii` (widens the selection again, to the entire class body), `ii` (widens the selection to also include the class signature).
+"    After this, further `ii`’s start selecting lines and blocks above the class.
+
+
+" You can combine the `ai`, `ii` and `aI` text objects with other operators besides v for visual mode, e.g. `cii`, `dii`, `yii` etc.
+"   For example `>ii` or `<ii` will indent or dedent an indented block.
+"   If you have `vim-commentary` installed then `gcii` will comment out an indented block.
+
+"========================================================================================"
+"========================================================================================"
+"========================================================================================"
+"============================██╗   ██╗██╗███╗   ███╗====================================="
+"============================██║   ██║██║████╗ ████║====================================="
+"============================██║   ██║██║██╔████╔██║====================================="
+"============================╚██╗ ██╔╝██║██║╚██╔╝██║====================================="
+"============================ ╚████╔╝ ██║██║ ╚═╝ ██║====================================="
+"============================  ╚═══╝  ╚═╝╚═╝     ╚═╝====================================="
+"==========================Idea Custom Actions Mapping =================================="
 "========================================================================================"
 "========================================================================================"
 "========================================================================================"
@@ -211,7 +449,7 @@ nmap <leader>rl <Action>(RecentLocations)
 
 "======================================= (l) Line ================================================="
 
-" Join Lines"
+" Join Lines, exactly the same as `ideajoin` default `J` (shift+j) "
 nmap <leader>lj <Action>(EditorJoinLines)
 nmap <leader>ls <Action>(EditorSplitLine)
 nmap <leader>lt <Action>(EditorSortLines)
@@ -317,8 +555,8 @@ nmap <leader>gd <Action>(GotoDeclaration)
 nmap <leader>ggt <Action>(GotoTypeDeclaration)
 nmap <leader>gi <Action>(GotoImplementation)
 nmap <leader>gt <Action>(GotoTest)
-nmap <leader>gm <Action>(GoToSuperMethod)
 
+nmap <leader>gm <Action>(GoToSuperMethod)
 "=== Modifiers
 nmap <C-u> <Action>(GotoNextElementUnderCaretUsage)
 nmap <D-u> <Action>(GotoPrevElementUnderCaretUsage)
@@ -339,6 +577,9 @@ nmap <D-n> <Action>(Back)
 nmap <C-t> <Action>(NextSplitter)
 nmap <D-t> <Action>(PrevSplitter)
 
+" move between active split window tabs
+"map <C-n> <Action>(MoveStatementUp)
+"map <D-n> <Action>(MoveStatementDown)
 
 "nmap <leader>gc <Action>(VcsShowPrevChangeMarker)
 "nmap <leader>ge <Action>(JumpToLastChange)
@@ -389,11 +630,7 @@ map <A-l> <Action>(StretchSplitToRight)
 map <A-k> <Action>(StretchSplitToTop)
 map <A-j> <Action>(StretchSplitToBottom)
 
-" (change size of active tool window top/bottom/left/right) - intellij keymapping"
-"ResizeToolWindowLeft         <A-h>
-"ResizeToolWindowRight        <A-l>
-"ResizeToolWindowUp           <A-k>
-"ResizeToolWindowDown         <A-j>
+
 
 
 nmap <Tab>ma <Action>(MaximizeEditorInSplit)
@@ -482,11 +719,7 @@ map <leader>pr <Action>(ManageRecentProjects)
 map <leader>pl <Action>(RecentProjectListGroup)
 map <leader>px <Action>(CloseProject)
 
-nmap <leader>pw <Action>(ActivateProjectToolWindow)
-nmap <leader>pv <Action>(SelectInProjectView)
 
-"nnoremap <leader>pw :NERDTree<CR>
-"nnoremap <leader>pv :NERDTreeFind<CR>
 
 
 "======================================= (?) Bookmarks and buffer ================================================="
@@ -516,3 +749,23 @@ nmap <leader>pv <Action>(SelectInProjectView)
 "nmap <C-k> <Action>(Resume)
 "nmap <C-h> <Action>(StepOut)
 "nmap <C-l> <Action>(ForceStepInto)
+
+
+"========================================================================================"
+"========================================================================================"
+"============================██╗   ██╗██╗███╗   ███╗====================================="
+"============================██║   ██║██║████╗ ████║====================================="
+"============================██║   ██║██║██╔████╔██║====================================="
+"============================╚██╗ ██╔╝██║██║╚██╔╝██║====================================="
+"============================ ╚████╔╝ ██║██║ ╚═╝ ██║====================================="
+"============================  ╚═══╝  ╚═╝╚═╝     ╚═╝====================================="
+"===================Changed Idea Keymapping to follow VIM================================"
+"========================================================================================"
+"========================================================================================"
+
+
+" (change size of active tool window top/bottom/left/right) - intellij keymapping"
+"ResizeToolWindowLeft         <A-h>
+"ResizeToolWindowRight        <A-l>
+"ResizeToolWindowUp           <A-k>
+"ResizeToolWindowDown         <A-j>
