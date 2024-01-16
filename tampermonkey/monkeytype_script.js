@@ -42,7 +42,7 @@
         let firstButton = document.getElementById('startTestButton');
 
         let nextDiv = Array.from(firstButton.parentElement.children)
-          .find(value => value.nodeName === 'DIV');
+        .find(value => value.nodeName === 'DIV');
 
         let counterParent = document.createElement('a');
         counterParent.className = 'textButton';

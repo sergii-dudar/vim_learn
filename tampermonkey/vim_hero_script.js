@@ -29,7 +29,7 @@
     }
 
     registerCustomCounterElListeners(
-      Array.from(document.querySelectorAll(".menu li a")));
+        Array.from(document.querySelectorAll(".menu li a")));
 
     registerCustomCounter();
 
@@ -42,13 +42,15 @@
     function registerCustomCounter() {
       setTimeout(function () {
         registerCustomCounterElListeners(
-          Array.from(document.querySelectorAll(".justify-between a")));
+            Array.from(document.querySelectorAll(".justify-between a")));
 
-        document.querySelector("button.badge").addEventListener('click', function () {
-          incrementIfPassed();
-        });
+        document.querySelector("button.badge").addEventListener('click',
+            function () {
+              incrementIfPassed();
+            });
 
-        let tabsContainers = document.getElementsByClassName("bg-neutral-focus");
+        let tabsContainers = document.getElementsByClassName(
+            "bg-neutral-focus");
         if (tabsContainers.length) {
           let tabsContainer = tabsContainers[0];
           tabsContainer.innerHTML += '<a class="tab">Counter:&nbsp;<b id="custom_counter">0</b></a>';
