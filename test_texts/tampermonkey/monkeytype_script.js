@@ -1,41 +1,57 @@
-setTimeout(function () {
+// ==UserScript==
+// @name         monkeytype_script
+// @namespace    http://tampermonkey.net/
+// @version      2024-01-16
+// @description  try to take over the world!
+// @author       You
+// @match        https://monkeytype.com/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=monkeytype.com
+// @grant        none
+// ==/UserScript==
 
-  document.addEventListener('keydown', function keydownHandler(event) {
-    if (event.key === 'Tab') {
-      keydownHandler.isTabPressed = true;
-    } else if (event.key === 'Enter' && keydownHandler.isTabPressed) {
-      keydownHandler.isTabPressed = false;
-      incrementIfPassed();
-    }
-  });
+(function() {
+  'use strict';
 
-  function incrementIfPassed() {
+  setTimeout(function () {
 
-    let resultElement = document.getElementById("result");
-    if (resultElement.className === 'hidden') {
-      console.log("Need pass training to increment counter, skipped!");
-    } else {
-      let counterEl = document.getElementById("custom_counter");
-      counterEl.innerText = Number(counterEl.innerText) + 1;
-    }
-  }
+      document.addEventListener('keydown', function keydownHandler(event) {
+          if (event.key === 'Tab') {
+              keydownHandler.isTabPressed = true;
+          } else if (event.key === 'Enter' && keydownHandler.isTabPressed) {
+              keydownHandler.isTabPressed = false;
+              incrementIfPassed();
+          }
+      });
 
-  registerCustomCounter();
+      function incrementIfPassed() {
 
-  function registerCustomCounter() {
-    setTimeout(function () {
+          let resultElement = document.getElementById("result");
+          if (resultElement.className === 'hidden') {
+              console.log("Need pass training to increment counter, skipped!");
+          } else {
+              let counterEl = document.getElementById("custom_counter");
+              counterEl.innerText = Number(counterEl.innerText) + 1;
+          }
+      }
 
-      let firstButton = document.getElementById('startTestButton');
+      registerCustomCounter();
 
-      let nextDiv = Array.from(firstButton.parentElement.children)
-        .find(value => value.nodeName === 'DIV');
+      function registerCustomCounter() {
+          setTimeout(function () {
 
-      let counterParent = document.createElement('a');
-      counterParent.className = 'textButton';
-      counterParent.innerHTML = 'Counter:&nbsp;<b id="custom_counter">0</b>'
-      nextDiv.insertAdjacentElement("beforebegin", counterParent)
+              let firstButton = document.getElementById('startTestButton');
 
-      console.log("Register counter!");
-    }, 500);
-  }
-}, 500);
+              let nextDiv = Array.from(firstButton.parentElement.children)
+              .find(value => value.nodeName === 'DIV');
+
+              let counterParent = document.createElement('a');
+              counterParent.className = 'textButton';
+              counterParent.innerHTML = 'Counter:&nbsp;<b id="custom_counter">0</b>'
+              nextDiv.insertAdjacentElement("beforebegin", counterParent)
+
+              console.log("Register counter!");
+          }, 500);
+      }
+  }, 500);
+
+})();
