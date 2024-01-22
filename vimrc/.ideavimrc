@@ -63,8 +63,17 @@ noremap L $
 "noremap J }
 "noremap K {
 
-noremap J 6j
-noremap K 6k
+noremap J 6jzz
+noremap K 6kzz
+
+"vertically navigation
+noremap <C-u> <C-u>zz
+noremap <C-u> <C-u>zz
+
+"find
+noremap n nzz
+noremap N Nzz
+" use '*' to next, and '#' to prev search, on word, to auto apply in find command!
 
 " (Block ident)"
 "vmap < <gv
@@ -493,7 +502,7 @@ map <leader>ss <Action>(ShowUsages)
 
 nmap <leader>se <Action>(ShowErrorDescription)
 
-map <leader>sh <Action>(HighlightUsagesInFile)
+map <leader>su <Action>(HighlightUsagesInFile)
 
 "=== git blame
 nmap <leader>sa <Action>(Annotate)
@@ -558,7 +567,7 @@ nmap <leader>gt <Action>(GotoTest)
 
 nmap <leader>gm <Action>(GoToSuperMethod)
 "=== Modifiers
-nmap <C-u> <Action>(GotoNextElementUnderCaretUsage)
+"nmap <C-u> <Action>(GotoNextElementUnderCaretUsage)
 nmap <D-u> <Action>(GotoPrevElementUnderCaretUsage)
 
 nmap <C-e> <Action>(GotoNextError)
@@ -576,6 +585,12 @@ nmap <D-n> <Action>(Back)
 " move between active split window tabs
 nmap <C-t> <Action>(NextSplitter)
 nmap <D-t> <Action>(PrevSplitter)
+
+"=== Scroll
+nmap <D-h> <Action>(EditorScrollLeft)
+nmap <D-j> <Action>(EditorScrollDown)
+nmap <D-k> <Action>(EditorScrollUp)
+nmap <D-l> <Action>(EditorScrollRight)
 
 " move between active split window tabs
 "map <C-n> <Action>(MoveStatementUp)
@@ -630,9 +645,6 @@ map <A-l> <Action>(StretchSplitToRight)
 map <A-k> <Action>(StretchSplitToTop)
 map <A-j> <Action>(StretchSplitToBottom)
 
-
-
-
 nmap <Tab>ma <Action>(MaximizeEditorInSplit)
 
 
@@ -683,6 +695,7 @@ nmap <leader>mgg <Action>(Git.Menu)
 
 nmap <leader>mr <Action>(RefactoringMenu)
 
+" create method by call etc
 nmap <leader>mi <Action>(ShowIntentionActions)
 
 "======================================= (b) Block (Code fold/expand) ================================================="
