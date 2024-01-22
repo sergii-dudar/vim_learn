@@ -51,7 +51,7 @@ set idearefactormode=keep
 
 set ideajoin
 set incsearch
-set scrolloff=5
+set scrolloff=8
 set hlsearch
 set ignorecase
 set smartcase
