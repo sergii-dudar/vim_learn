@@ -14,6 +14,15 @@
 "=======================  ╚═══╝  ╚═╝╚═╝     ╚═╝====================================="
 " ============================== basic pre configuration ==========================="
 
+"============= learning
+
+" 1. use '*' to next, and '#' to prev search, on word, to auto apply in find command!
+" 2. 'i' inside, 'a' around 'vi(', 'va('
+" 3. '=' format (=ap) format around paragraph etc
+" 4. '%' next\prex braces
+
+"=============
+
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -73,7 +82,7 @@ noremap <C-u> <C-u>zz
 "find
 noremap n nzz
 noremap N Nzz
-" use '*' to next, and '#' to prev search, on word, to auto apply in find command!
+
 
 " (Block ident)"
 "vmap < <gv
