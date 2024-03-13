@@ -108,6 +108,8 @@ set highlightedyank
 set NERDTree
 set exchange
 set textobj-indent
+" set clipboard+=unnamed
+set clipboard+=unnamedplus
 
 "========================================================================================"
 "========================================================================================"
