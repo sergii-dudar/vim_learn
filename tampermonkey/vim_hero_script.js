@@ -20,7 +20,8 @@
     });
 
     function incrementIfPassed() {
-      if (!document.getElementsByClassName('prism-code').length) {
+      //if (!document.getElementsByClassName('prism-code').length) {
+      if (document.querySelectorAll('[id^=react-aria]').length) {
         let counterEl = document.getElementById("custom_counter");
         counterEl.innerText = Number(counterEl.innerText) + 1;
       } else {
@@ -49,10 +50,8 @@
               incrementIfPassed();
             });
 
-        let tabsContainers = document.getElementsByClassName(
-            "bg-neutral-focus");
-        if (tabsContainers.length) {
-          let tabsContainer = tabsContainers[0];
+        let tabsContainer = document.querySelector("div.tabs");
+        if (tabsContainer) {
           tabsContainer.innerHTML += '<a class="tab">Counter:&nbsp;<b id="custom_counter">0</b></a>';
         }
         console.log("Register counter!");
