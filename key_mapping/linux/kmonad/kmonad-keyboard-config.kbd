@@ -1,4 +1,5 @@
 (defcfg
+  ;; https://github.com/kmonad/kmonad
   ;; For Linux
   input  (device-file "/dev/input/by-id/usb-Topre_Corporation_Realforce_87-event-kbd")
   output (uinput-sink "My KMonad output"
