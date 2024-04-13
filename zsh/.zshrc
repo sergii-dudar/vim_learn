@@ -151,6 +151,17 @@ function s_status() {
     sudo systemctl status "$1"
 }
 
+# mac:
+function copy_content() {
+	  pbcopy < $1
+}
+
+# brew install findutils
+# brew install coreutils
+function copy_file() {
+	  osascript -e{'on run{a}','set the clipboard to posix file a',end} "$(greadlink -f -- "$1")"
+}
+
 #export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH=$PATH:/home/serhii/homebrew/bin/
 #export PATH=$PATH:/snap/intellij-idea-ultimate/current/bin
