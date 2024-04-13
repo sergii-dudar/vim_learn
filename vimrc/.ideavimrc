@@ -77,7 +77,7 @@ noremap K 6kzz
 
 "vertically navigation
 noremap <C-u> <C-u>zz
-noremap <C-u> <C-u>zz
+noremap <C-d> <C-d>zz
 
 "find
 noremap n nzz
