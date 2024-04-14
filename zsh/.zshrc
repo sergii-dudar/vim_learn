@@ -127,6 +127,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias l='ls -l'         # ls with items and directory details
+alias la='ls -a'        # ls all items and directories within cd
+alias lA='ls -A'        # ls all items and directories within cd, EXCEPT "." and ".."
+alias lla='ls -la'      # combines "ls -l" and "ls -a"
+alias llA='ls -lA'      # combines "ls -l" and "ls -A"
+
 function idea() {
     /snap/intellij-idea-ultimate/current/bin/idea.sh "$1" > /dev/null 2>&1 &
 }
@@ -151,15 +157,22 @@ function s_status() {
     sudo systemctl status "$1"
 }
 
-# mac:
 function copy_content() {
+    # mac:
 	  pbcopy < $1
+
+	  #ubuntu:
+	  #...
 }
 
-# brew install findutils
-# brew install coreutils
 function copy_file() {
+    # mac
+    # brew install findutils
+    # brew install coreutils
 	  osascript -e{'on run{a}','set the clipboard to posix file a',end} "$(greadlink -f -- "$1")"
+
+	  # linux
+	  # ...
 }
 
 #export HOMEBREW_FORCE_BREWED_CURL=1
