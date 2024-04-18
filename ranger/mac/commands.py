@@ -153,7 +153,7 @@ class copy_file_content_to_clipboard(Command):
         self.fm.run('pbcopy < ' + file.path, flags='f')
             #subprocess.check_call('pbcopy < ' + file.path, shell=True)
         #else:
-        #    self.fm.notify("{} is not an image file or a text file".format(file.relative_path))
+        #    self.fm.notify("{} is not an image file or a text file".format(file.relative_path))      
 
 class copy_file_to_clipboard(Command):
     def execute(self):

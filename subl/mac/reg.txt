@@ -1,0 +1,17 @@
+https://hexed.it/
+
+80 78 05 00 0F 94 C1
+C6 40 05 01 48 85 C9
+
+search for 80 78 05 00 0F 94 C1 and replace it with C6 40 05 01 48 85 C9
+
+sudo mv /opt/sublime_text/sublime_text ./sublime_text.old
+cd $HOME/Downloads/
+chmod 755 sublime_text
+sudo chown root sublime_text
+sudo chgrp staff sublime_text
+
+# move changed sublime_text to Application/Sublime/Contents/Macos
+
+cd /Applications
+sudo codesign --remove-signature Sublime\ Text.app/

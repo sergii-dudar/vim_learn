@@ -1,3 +1,5 @@
+#clear
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -133,16 +135,12 @@ alias lA='ls -A'        # ls all items and directories within cd, EXCEPT "." and
 alias lla='ls -la'      # combines "ls -l" and "ls -a"
 alias llA='ls -lA'      # combines "ls -l" and "ls -A"
 
-function idea() {
-    /snap/intellij-idea-ultimate/current/bin/idea.sh "$1" > /dev/null 2>&1 &
-}
-
 function tw() {
     gnome-terminal --window
 }
 
 function tt() {
-    gnome-terminal --tab
+    open -a iTerm .
 }
 
 function files() {
@@ -158,34 +156,37 @@ function s_status() {
 }
 
 function copy_content() {
-    # mac:
 	  pbcopy < $1
-
-	  #ubuntu:
-	  #...
 }
 
+# brew install findutils
+# brew install coreutils
 function copy_file() {
-    # mac
-    # brew install findutils
-    # brew install coreutils
 	  osascript -e{'on run{a}','set the clipboard to posix file a',end} "$(greadlink -f -- "$1")"
-
-	  # linux
-	  # ...
 }
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 #export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH=$PATH:/home/serhii/homebrew/bin/
 #export PATH=$PATH:/snap/intellij-idea-ultimate/current/bin
 export PATH=$PATH:/snap/bin
 
+export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
+
 export VISUAL=nvim
 export EDITOR=nvim
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/serhii.dudar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Add Docker Desktop for Mac (docker)
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"

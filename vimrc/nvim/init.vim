@@ -20,6 +20,22 @@ vnoremap . :norm! .<CR>
 "cnoremap jj <C-c>
 "cnoremap JJ <C-c>
 
+
+"noremap J }
+"noremap K {
+
+noremap J 6jzz
+noremap K 6kzz
+
+"vertically navigation
+noremap <C-u> <C-u>zz
+noremap <C-d> <C-d>zz
+
+"find
+noremap n nzz
+noremap N Nzz
+
+
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 

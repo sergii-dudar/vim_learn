@@ -104,7 +104,10 @@ multiplier = 3  # Default: 3
 [font]
 
 # Normal font style
-normal = { family = "monospace", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+# Linux/BSD: { family = "monospace", style = "Regular" }
+# Windows: { family = "Consolas", style = "Regular" }
+# macOS: { family = "Menlo", style = "Regular" }
+normal = { family = "monospace", style = "Regular" }
 
 # Bold font style
 bold = { style = "Bold" }  # Inherits family from normal, Default style: Bold
