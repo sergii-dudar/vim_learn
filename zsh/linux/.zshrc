@@ -1,3 +1,5 @@
+#clear
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -134,39 +136,30 @@ alias lA='ls -A'        # ls all items and directories within cd, EXCEPT "." and
 alias lla='ls -la'      # combines "ls -l" and "ls -a"
 alias llA='ls -lA'      # combines "ls -l" and "ls -A"
 
-alias az_dev='az aks get-credentials --resource-group dev --name aks-dev'
-alias az_qa='az aks get-credentials --resource-group qa --name aks-qa'
-alias az_uat='az aks get-credentials --resource-group uat --name aks-uat'
-
-alias k9sa='k9s -n all'
-
-alias k9sd='az_dev ; k9sa'
-alias k9sq='az_qa ; k9sa'
-alias k9su='az_uat ; k9sa'
-
-alias msa='mvn spotless:apply'
-alias helmu='helm dependency update'
-
-alias gitreset_comit='git reset HEAD~'
-
-alias tmuxan='tmux attach || tmux new' # connect to exists session or create new one
-
-alias mvncc='mvn clean compile'
- 
-function idea() {
-    /snap/intellij-idea-ultimate/current/bin/idea.sh "$1" > /dev/null 2>&1 &
-}
+#function idea() {
+#    /snap/intellij-idea-ultimate/current/bin/idea.sh "$1" > /dev/null 2>&1 &
+#}
 
 function tw() {
-    gnome-terminal --window
+    # gnome-terminal --window
+    alacritty
 }
 
 function tt() {
-    gnome-terminal --tab
+    #gnome-terminal --tab
+    #open -a iTerm .
+    alacritty
 }
 
 function files() {
-    nautilus "$1" > /dev/null 2>&1 &
+    #nautilus "$1" > /dev/null 2>&1 &
+    #open -R "$1"
+
+    if [ -z "$1" ]; then
+        open .
+    else
+        open -R "$1"
+    fi
 }
 
 function s_restart() {
@@ -178,32 +171,37 @@ function s_status() {
 }
 
 function copy_content() {
-    xclip -selection clipboard $1
+	  pbcopy < $1
 }
 
+# brew install findutils
+# brew install coreutils
 function copy_file() {
-    # mac
-    # brew install findutils
-    # brew install coreutils
-      osascript -e{'on run{a}','set the clipboard to posix file a',end} "$(greadlink -f -- "$1")"
-
-      # linux
-      # ...
+	  osascript -e{'on run{a}','set the clipboard to posix file a',end} "$(greadlink -f -- "$1")"
 }
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 #export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH=$PATH:/home/serhii/homebrew/bin/
 #export PATH=$PATH:/snap/intellij-idea-ultimate/current/bin
 export PATH=$PATH:/snap/bin
-#export PATH=$HOME/.cargo/env
-#export PATH=$HOME/.cargo/bin
+
+export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 
 export VISUAL=nvim
 export EDITOR=nvim
 
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/serhii.dudar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Add Docker Desktop for Mac (docker)
+export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"

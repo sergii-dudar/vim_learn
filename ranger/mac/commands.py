@@ -122,16 +122,37 @@ class fzf_select(Command):
             else:
                 self.fm.select_file(selected)
 
-
-class show_files_in_finder(Command):
-    """
-    :show_files_in_finder
-
-    Present selected files in finder
-    """
-
+class show_current_dir_in_finder(Command):
     def execute(self):
+        #self.fm.run('open .', flags='f')
         self.fm.run('open .', flags='f')
+
+class show_current_file_in_finder(Command):
+    def execute(self):
+        self.fm.run('open -R ' + self.fm.thisfile.path, flags='f')
+
+class open_in_intellij(Command):
+    def execute(self):
+        #print("file.path" + self.fm.thisfile.path)
+        self.fm.run('idea "' + self.fm.thisfile.path + '" > /dev/null 2>&1 &', flags='f')
+
+class open_in_vscode(Command):
+    def execute(self):
+        self.fm.run('code "' + self.fm.thisfile.path + '" > /dev/null 2>&1 &', flags='f')
+
+class open_in_nvim_tab(Command):
+    def execute(self):
+        import subprocess
+        self.fm.run('alacritty --command nvim ' + self.fm.thisfile.path, flags='f')
+        #subprocess.Popen(["nvim", self.fm.thisfile.path])
+
+class open_in_sublime(Command):
+    def execute(self):
+        self.fm.run('subl "' + self.fm.thisfile.path + '"', flags='f')
+
+class open_terminal_tab(Command):
+    def execute(self):
+        self.fm.run('alacritty', flags='f')
 
 class copy_file_content_to_clipboard(Command):
     def execute(self):
