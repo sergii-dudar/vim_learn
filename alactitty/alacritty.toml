@@ -9,7 +9,7 @@
 
 # ayu_dark, breeze, marine_dark, github_dark_colorblind, alabaster_dark, google, hyper, citylights
 
-# alabaster_dark, google,
+# alabaster_dark, google, alabaster_dark, night_owl
 
 import = [
     "~/.config/alacritty/themes/themes/alabaster_dark.toml"
@@ -44,12 +44,12 @@ ipc_socket = true  # Default: true
 [window]
 
 # Window dimensions
-dimensions = { columns = 0, lines = 0 }  # Default: columns = 0, lines = 0
+dimensions = { columns = 125, lines = 45 }  # Default: columns = 0, lines = 0
 
 # Window startup position
-position = "None"  # Default: "None"
+position = { x = 1000, y = 1250 }  # Default: "None"
 
-# Padding
+# Padding - Window startup position.
 padding = { x = 0, y = 0 }  # Default: x = 0, y = 0
 
 # Dynamic padding
@@ -107,7 +107,9 @@ multiplier = 3  # Default: 3
 # Linux/BSD: { family = "monospace", style = "Regular" }
 # Windows: { family = "Consolas", style = "Regular" }
 # macOS: { family = "Menlo", style = "Regular" }
-normal = { family = "monospace", style = "Regular" }
+normal = { family = "Hack Nerd Font", style = "Regular" }
+#normal = { family = "Hack Nerd Font", style = "Regular" }
+
 
 # Bold font style
 bold = { style = "Bold" }  # Inherits family from normal, Default style: Bold
@@ -119,7 +121,7 @@ italic = { style = "Italic" }  # Inherits family from normal, Default style: Ita
 bold_italic = { style = "Bold Italic" }  # Inherits family from normal, Default style: Bold Italic
 
 # Font size in points
-size = 17  # Default: 11.25
+size = 25  # Default: 11.25
 
 # Offset is extra space around each character
 offset = { x = 0, y = 0 }  # Default: x = 0, y = 0

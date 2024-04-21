@@ -78,6 +78,7 @@ plugins=(
     git
     vi-mode
     sdk
+    tmux
     # mvn
     # kubectl
     # gradle
@@ -135,16 +136,33 @@ alias lA='ls -A'        # ls all items and directories within cd, EXCEPT "." and
 alias lla='ls -la'      # combines "ls -l" and "ls -a"
 alias llA='ls -lA'      # combines "ls -l" and "ls -A"
 
+alias tmuxan='tmux attach || tmux new -s default \; command-prompt -p "Window name: " "rename-window ''%%''"'
+#alias tmuxan='tmux new-session -A -s default'
+
+#function idea() {
+#    /snap/intellij-idea-ultimate/current/bin/idea.sh "$1" > /dev/null 2>&1 &
+#}
+
 function tw() {
-    gnome-terminal --window
+    # gnome-terminal --window
+    alacritty
 }
 
 function tt() {
-    open -a iTerm .
+    #gnome-terminal --tab
+    #open -a iTerm .
+    alacritty
 }
 
 function files() {
-    nautilus "$1" > /dev/null 2>&1 &
+    #nautilus "$1" > /dev/null 2>&1 &
+    #open -R "$1"
+
+    if [ -z "$1" ]; then
+        open .
+    else
+        open -R "$1"
+    fi
 }
 
 function s_restart() {
