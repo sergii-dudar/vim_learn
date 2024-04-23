@@ -136,6 +136,25 @@ alias lA='ls -A'        # ls all items and directories within cd, EXCEPT "." and
 alias lla='ls -la'      # combines "ls -l" and "ls -a"
 alias llA='ls -lA'      # combines "ls -l" and "ls -A"
 
+alias az_dev='az aks get-credentials --resource-group dev --name aks-dev'
+alias az_qa='az aks get-credentials --resource-group qa --name aks-qa'
+alias az_uat='az aks get-credentials --resource-group uat --name aks-uat'
+
+alias k9sa='k9s -n all'
+
+alias k9sd='az_dev ; k9sa'
+alias k9sq='az_qa ; k9sa'
+alias k9su='az_uat ; k9sa'
+
+alias msa='mvn spotless:apply'
+alias helmu='helm dependency update'
+
+alias gitreset_comit='git reset HEAD~'
+
+alias tmuxan='tmux attach || tmux new' # connect to exists session or create new one
+
+alias mvncc='mvn clean compile'
+
 alias tmuxan='tmux attach || tmux new -s default \; command-prompt -p "Window name: " "rename-window ''%%''"'
 #alias tmuxan='tmux new-session -A -s default'
 

@@ -134,7 +134,7 @@ class show_current_file_in_nautilus(Command):
 class open_in_intellij(Command):
     def execute(self):
         #print("file.path" + self.fm.thisfile.path)
-        self.fm.run('/snap/intellij-idea-ultimate/current/bin/idea.sh "' + self.fm.thisfile.path + '" > /dev/null 2>&1 &', flags='f')
+        self.fm.run('intellij-idea-ultimate "' + self.fm.thisfile.path + '" > /dev/null 2>&1 &', flags='f')
 
 class open_in_vscode(Command):
     def execute(self):
